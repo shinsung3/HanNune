@@ -27,3 +27,5 @@ Han Nune Live Chat Analytics Platform
     - npm install vuetify
     - .eslintrc.json : babel error 해결
     - vue add electron-builder : Vuetify를 Electron과 사용 위해 plugin 추가
+    - eslint 설치 : npm install eslint --save -dev
+    - eslint 환경 설정 : npx eslint --init
