@@ -2,44 +2,98 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="#4395e0"
+      height="75"
       dark
+      elevation="5"
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <div class="d-flex align-center">
+      <v-img
+        alt="Logo"
+        class="shrink mr-2"
+        contain
+        src="./assets/logo_final.png"
+        width="63"
+      ></v-img>
+    </div>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+      <v-toolbar-title class="font-weight-black headline">
+        HANUNE
+      </v-toolbar-title>
+      <v-menu>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            width="200"
+            x-large
+            text
+            height="100"
+          >
+            HOME
+          </v-btn>
+        </template>
+      </v-menu>
+            <v-menu>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            width="200"
+            x-large
+            text
+            height="100"
+          >
+            H-GOODS
+          </v-btn>
+        </template>
 
-      <v-spacer></v-spacer>
+        <v-list>
+          <v-list-item
+            v-for="n in 5"
+            :key="n"
+            @click="() => {}"
+          >
+            <v-list-item-title>Option {{ n }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+            <v-menu>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            width="200"
+            x-large
+            text
+            height="100"
+          >
+            H-LIVE
+          </v-btn>
+        </template>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+        <v-list>
+          <v-list-item
+            v-for="n in 5"
+            :key="n"
+            @click="() => {}"
+          >
+            <v-list-item-title>Option {{ n }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-main>
       <MainPage/>
     </v-main>
+    <v-footer
+      color="#4395e0"
+      dark
+    >
+    <v-spacer></v-spacer>
+    @COPYRIGHT VITAMIN PLUS - HANUNE
+    </v-footer>
   </v-app>
 </template>
 
