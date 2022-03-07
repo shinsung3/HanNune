@@ -20,4 +20,10 @@ Han Nune Live Chat Analytics Platform
     - vue-cli 설치 : npm install -g @vue/cli
     - 프로젝트 생성 : vue create frontend -> vue2 선택
     - 실행 : cd frontend > npm run serve
-    - vuetify framework 추가 : vue add vuetify
+    - vuetify framework 추가 : vue add vuetify > default 선택
+    - vue ui : Vuetify 플러그인 설치 (선택사항)
+    - Nuxt 설치 - Vuetify는 Nuxt Vuetify 모듈을 설치하여 추가가능
+    - Nuxt 설치 : npm install @nuxtjs/vuetify -D
+    - npm install vuetify
+    - .eslintrc.json : babel error 해결
+    - vue add electron-builder : Vuetify를 Electron과 사용 위해 plugin 추가
