@@ -8,11 +8,13 @@
 
       <v-responsive
         class="mx-auto mb-8"
-        width="56"
+        width="350"
       >
-        <v-divider class="mb-1"></v-divider>
+        <v-divider
+          class="mb-1 grey"
+        ></v-divider>
 
-        <v-divider></v-divider>
+        <v-divider class="grey"></v-divider>
       </v-responsive>
 
       <v-responsive

@@ -12,7 +12,7 @@
         alt="Logo"
         class="shrink mr-2"
         contain
-        src="./assets/logo_final.png"
+        src="./assets/white.png"
         width="63"
       ></v-img>
     </div>
@@ -87,13 +87,14 @@
     <v-main>
       <MainPage/>
       <PositiveNegativeRatio/>
+      <HfmHotKeyword/>
     </v-main>
     <v-footer
-      color="#4395e0"
+      color="#9DC3E6"
       dark
     >
     <v-spacer></v-spacer>
-    @COPYRIGHT VITAMIN PLUS - HANUNE
+    @COPYRIGHT VITAMIN PLUS - HANUNE [Hansome 2 Team] Nustar, HaSubin
     </v-footer>
   </v-app>
 </template>
@@ -101,6 +102,7 @@
 <script>
 import MainPage from './components/MainPage';
 import PositiveNegativeRatio from './components/PositiveNegativeRatio.vue';
+import HfmHotKeyword from './components/HfmHotKeyword.vue';
 
 export default {
   name: 'App',
@@ -108,6 +110,7 @@ export default {
   components: {
     MainPage,
     PositiveNegativeRatio,
+    HfmHotKeyword,
   },
 
   data: () => ({

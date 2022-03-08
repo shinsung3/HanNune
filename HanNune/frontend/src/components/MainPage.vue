@@ -1,6 +1,6 @@
 <template>
   <section id="main">
-    <v-row no-gutters>
+    <v-row no-gutters class="visual">
       <v-img
         width="100%"
         src="../assets/3.jpg"
@@ -29,6 +29,7 @@
                 <span
                   :class="[$vuetify.breakpoint.smAndDown ? 'display-3': 'display-4']"
                   class="font-weight-black"
+                  data-splitting
                 >
                   HANUNE
                 </span>
@@ -37,10 +38,10 @@
                 <span
                   :class="[$vuetify.breakpoint.smAndDown ? 'display-1': 'display-1']"
                   class="font-weight-black"
+                  data-splitting
                 >
                   - VITAMIN PLUS -
                 </span>
-
               </v-col>
 
               <v-btn
