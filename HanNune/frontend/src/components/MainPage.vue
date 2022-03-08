@@ -1,5 +1,5 @@
 <template>
-  <section id="hero">
+  <section id="main">
     <v-row no-gutters>
       <v-img
         width="100%"

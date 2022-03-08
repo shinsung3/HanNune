@@ -86,6 +86,7 @@
 
     <v-main>
       <MainPage/>
+      <PositiveNegativeRatio/>
     </v-main>
     <v-footer
       color="#4395e0"
@@ -99,12 +100,14 @@
 
 <script>
 import MainPage from './components/MainPage';
+import PositiveNegativeRatio from './components/PositiveNegativeRatio.vue';
 
 export default {
   name: 'App',
 
   components: {
     MainPage,
+    PositiveNegativeRatio,
   },
 
   data: () => ({
