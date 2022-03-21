@@ -2,7 +2,7 @@
 Han Nune Live Chat Analytics Platform
 
 ### 1. python Django 설치
-- python --version          : 3.10.2
+- python --version          : 3.8.5
 - pip --version             : pip 22.0.3
 - django-admin --version    : 4.0.3
 - download : https://www.python.org/downloads/
@@ -32,7 +32,9 @@ Han Nune Live Chat Analytics Platform
 4. 감정 분석
     - pip install pandas
     - https://www.lfd.uci.edu/~gohlke/pythonlibs/#jpype
-        - JPype1-1.3.0-cp310-cp310-win_amd64.whl 다운로드
+        - JPype1-1.3.0-cp38-cp38-win_amd64.whl 다운로드
         - pip install --upgrade pip -> 안되면 python get-pip.py 실행
-        - pip install JPype1-1.3.0-cp310-cp310-win_amd64.whl
+        - pip install JPype1-1.3.0-cp38-cp38-win_amd64.whl
     - pip install konlpy==0.5.2 jpype1 Jpype1-py3 -> pip install konlpy
+        - error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
+        - https://www.microsoft.com/ko-KR/download/confirmation.aspx?id=48159 : 다운로드
