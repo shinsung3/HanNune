@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'HanNune.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'hnune',
+        'USER': 'hnune',
+        'PASSWORD': 'hannune',
+        'HOST': '3.34.129.76',
+        'PORT': '3306'
     }
 }
 
