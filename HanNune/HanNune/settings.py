@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'HanNune',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +82,10 @@ DATABASES = {
         'USER': 'hnune',
         'PASSWORD': 'hannune',
         'HOST': '3.34.129.76',
-        'PORT': '3306'
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"; SET default_storage_engine=INNODB;',
+        }
     }
 }
 
