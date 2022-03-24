@@ -21,5 +21,5 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', views.index_home, name='index'),
     path('emotion/', emotion_views.emotionController, name="emotion"),
-    path('emotion/<int:live_chat_id>/', emotion_views.emotionController, name="emotion_pk"),
+    path('emotion/<int:live_id>/', emotion_views.emotionPKController, name="emotion_pk"),
 ]
