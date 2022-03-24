@@ -14,12 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from . import emotion_views
+from django.urls import path,include
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', views.index_home, name='index'),
-    path('emotion/', emotion_views.emotionController, name="emotion"),
-    path('emotion/<int:live_chat_id>/', emotion_views.emotionController, name="emotion_pk"),
+    path('', include('HanNune.urls')),
 ]
