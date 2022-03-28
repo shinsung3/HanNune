@@ -20,6 +20,8 @@ from . import emotion_views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', views.index_home, name='index'),
-    path('emotion/', emotion_views.emotionController, name="emotion"),
-    path('emotion/<int:live_id>/', emotion_views.emotionPKController, name="emotion_pk"),
+    path('emotion/', emotion_views.emotionController, name="emotion"), #chat전체 호출
+    path('emotion/<int:live_id>/', emotion_views.emotionPKController, name="emotion_pk"), #live_id로 호출
+    path('sentiword/<str:searchWord>/', emotion_views.sentiwordController, name="sentiwordSearch"), #live_id로 호출
+    path('update/sentiword/live/<int:live_id>/', emotion_views.updateLiveChatSentiwordController, name="sentiwordSearch"), #live_id로 호출
 ]

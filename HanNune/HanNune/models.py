@@ -22,6 +22,29 @@ class live_chat(models.Model):
         managed = False
         db_table = 'live_chat'
 
+class sentiword_info(models.Model):
+    id = models.IntegerField(primary_key=True)
+    word = models.CharField(max_length=100)
+    word_root = models.CharField(max_length=100, null=True)
+    polarity = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'sentiword_info'
+
+class sentiword_live_score(models.Model):
+    id = models.IntegerField(primary_key=True)
+    power_negative = models.IntegerField()
+    negative = models.IntegerField()
+    neutrality = models.IntegerField()
+    positive = models.IntegerField()
+    power_positive = models.IntegerField()
+    live_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'sentiword_live_score'
+
 class god(models.Model):
     god_no = models.CharField(max_length=20, null=True)
     erp_god_no = models.CharField(max_length=60, null=True)

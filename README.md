@@ -38,6 +38,9 @@ Han Nune Live Chat Analytics Platform
     - pip install konlpy==0.5.2 jpype1 Jpype1-py3 -> pip install konlpy
         - error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
         - https://www.microsoft.com/ko-KR/download/confirmation.aspx?id=48159 : 다운로드
+    - pip3 install pymysql (josn 데이터 db저장)
+    - DB : 보호 지울때
+        - set sql_safe_updates=0;
 5. DB 설치
     - mysql client 설치 : pip install mysqlclient
     - manage.py 있는 폴더로 이동 후 -> python manage.py makemigrations
