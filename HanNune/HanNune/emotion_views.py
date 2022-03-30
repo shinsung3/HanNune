@@ -38,18 +38,34 @@ def sentiwordController(request, searchWord):
     serializer = SentiWordInfoSerializer(wordInfo, many=True)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-@api_view(['GET', 'POST', 'DELETE', 'PUT'])
-def updateLiveChatSentiwordController(request, live_id):
-    # if live_id == None:
-    #     return
+@api_view(['GET','POST', 'DELETE', 'PUT'])
+def insertLiveChatSentiwordController(request, live_id):
+    print(request.method)
+    print(request)
     liveChatDataId = sentiword_live_score.objects.filter(live_id=live_id)
-    if len(liveChatDataId) == 0:
-        liveChatData = live_chat.objects.filter(live_id=live_id)
-        # print(liveChatData)
-        for chatData in liveChatData:
-            dic = emotionAnalytics(chatData.chat_cont)
-    serializer = LiveChatSerializer(liveChatDataId, many=True)
-    return Response(data=serializer.data, status=status.HTTP_200_OK)
+    if request.method == 'GET':
+        serializer = SentiWordLiveScoreSerializer(liveChatDataId, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'POST':
+        dic = {"-2":0, "-1":0, "0":0, "1":0, "2":0}
+        if len(liveChatDataId) == 0:
+            liveChatData = live_chat.objects.filter(live_id=live_id)
+            for chatData in liveChatData:
+                dic = emotionAnalytics(chatData.chat_cont)
+            id = live_id
+            power_negative = dic['-2']
+            negative = dic['-1']
+            neutrality = dic['0']
+            positive = dic['1']
+            power_positive = dic['2']
+            live_id = live_id
+            sentiword_live_score(id=id,power_negative=power_negative, negative=negative, neutrality=neutrality, positive=positive,
+                            power_positive=power_positive,live_id=live_id).save()
+            # serializer = LiveChatSerializer(data=request.data, many=True)
+            # print(serializer)
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 def index_home(request):
     print("Hello World")
@@ -79,12 +95,17 @@ komoran = Komoran("EXP")
 ksl = KnuSL
 dic = {"-2":0, "-1":0, "0":0, "1":0, "2":0}
 def emotionAnalytics(word):
-    tokens = komoran.get_nouns(word)
-    # print("-2:매우 부정, -1:부정, 0:중립 or Unkwon, 1:긍정, 2:매우 긍정")
-    for token in tokens:
-        wordname = token.strip(" ")
-        root, score = ksl.data_list(wordname)
-        score = str(score)
-        dic[score] = dic[score]+1
-        # print(dic)
+    print(word)
+    if "즤" not in word:
+        tokens = komoran.get_morphes_by_tags(word)
+        print(len(tokens))
+        # print("-2:매우 부정, -1:부정, 0:중립 or Unkwon, 1:긍정, 2:매우 긍정")
+        if len(tokens)>0:
+            for token in tokens:
+                wordname = token.strip(" ")
+                # print(wordname)
+                root, score = ksl.data_list(wordname)
+                score = str(score)
+                dic[score] = dic[score]+1
+                # print(dic)
     return dic

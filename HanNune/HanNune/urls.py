@@ -23,5 +23,5 @@ urlpatterns = [
     path('emotion/', emotion_views.emotionController, name="emotion"), #chat전체 호출
     path('emotion/<int:live_id>/', emotion_views.emotionPKController, name="emotion_pk"), #live_id로 호출
     path('sentiword/<str:searchWord>/', emotion_views.sentiwordController, name="sentiwordSearch"), #live_id로 호출
-    path('update/sentiword/live/<int:live_id>/', emotion_views.updateLiveChatSentiwordController, name="sentiwordSearch"), #live_id로 호출
+    path('post/sentiword/live/<int:live_id>/', emotion_views.insertLiveChatSentiwordController, name="sentiwordSearch"), #live_id로 호출
 ]
