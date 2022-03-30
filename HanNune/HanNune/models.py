@@ -45,6 +45,16 @@ class sentiword_live_score(models.Model):
         managed = False
         db_table = 'sentiword_live_score'
 
+class live_keyword_rank(models.Model):
+    live_id = models.CharField(max_length=20, null=True)
+    keyword_rank = models.IntegerField(primary_key=True)
+    keyword = models.CharField(max_length=100, null=True)
+    keyword_freq = models.IntegerField(null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'live_keyword_rank'
+
 class god(models.Model):
     god_no = models.CharField(max_length=20, null=True)
     erp_god_no = models.CharField(max_length=60, null=True)
