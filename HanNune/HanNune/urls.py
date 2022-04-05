@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import emotion_views, keyword_views
+from . import emotion_views, keyword_views, live_views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', views.index_home, name='index'),
+    path('live/<int:live_id>', live_views.liveDataController, name="live"), #chat전체 호출
     path('emotion/', emotion_views.emotionController, name="emotion"), #chat전체 호출
     path('emotion/<int:live_id>/', emotion_views.emotionPKController, name="emotion_pk"), #live_id로 호출
     path('sentiword/<str:searchWord>/', emotion_views.sentiwordController, name="sentiwordSearch"), #live_id로 호출

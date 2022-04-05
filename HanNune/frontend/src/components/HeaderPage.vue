@@ -16,9 +16,13 @@
       ></v-img>
     </div>
 
-      <v-toolbar-title class="font-weight-black headline">
-        HANUNE
-      </v-toolbar-title>
+      <router-link
+        style="text-decoration:none; color:#fff;"
+        to="/">
+        <v-toolbar-title class="font-weight-black headline">
+          HANUNE
+        </v-toolbar-title>
+      </router-link>
       <v-menu>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -58,19 +62,22 @@
         </v-list>
       </v-menu>
       <!-- <v-menu> -->
-        <router-link
-          to="/live"
-        >
-        H-Live
-        </router-link>
           <!-- <template v-slot:activator="{ on, attrs }"> -->
-
-            <!-- <v-btn
+        <router-link
+          style="text-decoration:none;"
+          to="/live">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              width="200"
+              x-large
+              text
+              height="100"
             >
               H-LIVE
-            </v-btn> -->
+            </v-btn>
           <!-- </template> -->
-        <!-- </router-link> -->
+        </router-link>
 
         <!-- <v-list>
           <v-list-item

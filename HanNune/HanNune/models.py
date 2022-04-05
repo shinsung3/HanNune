@@ -2,12 +2,17 @@ from django.db import models
 from django.conf import settings
 
 class live(models.Model):
-    live_id = models.CharField(max_length=20, null=True)
+    live_id = models.CharField(max_length=20, primary_key=True)
     live_name = models.CharField(max_length=100, null=True)
     live_start_dt = models.DateTimeField(null=True)
     live_end_dt = models.DateTimeField(null=True)
     live_stat = models.CharField(max_length=20, null=True)
     campaign_key = models.CharField(max_length=20, null=True)
+    live_img_url = models.CharField(max_length=1000, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'live'
 
 class live_chat(models.Model):
     live_id = models.CharField(max_length=20, null=True)

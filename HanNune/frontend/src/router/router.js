@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router';
 import HomePage from '@/components/HomePage';
-import EmotionPage from '@/components/emotion/EmotionPage';
+
 import KeywordPage from '@/components/keyword/KeywordPage';
+import EmotionPage from '@/components/emotion/EmotionMainPage';
 
 Vue.use(VueRouter); // router 기능 확장 선언
 
