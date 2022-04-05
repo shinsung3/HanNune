@@ -62,7 +62,10 @@ def insertLiveChatKeywordController(request, live_id):
                 keyword = noun_list[i][0]
                 keyword_freq = noun_list[i][1]
                 live_keyword_rank(live_id=live_id, keyword_rank=keyword_rank, keyword=keyword, keyword_freq=keyword_freq).save()
-        
+        elif len(liveChatDataId) > 0 :
+            serializer = LiveKeywordRankSerializer(liveChatDataId, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+            
         return Response(status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
