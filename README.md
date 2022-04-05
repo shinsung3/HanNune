@@ -29,6 +29,10 @@ Han Nune Live Chat Analytics Platform
     - vue add electron-builder : Vuetify를 Electron과 사용 위해 plugin 추가
     - eslint 설치 : npm install eslint --save -dev
     - eslint 환경 설정 : npx eslint --init
+    - npm install vue-router@3 : page 이동 router 추가
+    - npm install vue-router@next --save : router 설치
+    - npm run build
+    - npm run serve : 실행
 4. 감정 분석
     - pip install pandas
     - https://www.lfd.uci.edu/~gohlke/pythonlibs/#jpype

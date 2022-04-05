@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <router-view></router-view>
     <v-app-bar
       app
       color="#4395e0"
@@ -58,21 +59,22 @@
           </v-list-item>
         </v-list>
       </v-menu>
-            <v-menu>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            v-bind="attrs"
-            v-on="on"
-            width="200"
-            x-large
-            text
-            height="100"
-          >
-            H-LIVE
-          </v-btn>
-        </template>
+      <!-- <v-menu> -->
+        <router-link
+          to="/live"
+        >
+        H-Live
+        </router-link>
+          <!-- <template v-slot:activator="{ on, attrs }"> -->
 
-        <v-list>
+            <!-- <v-btn
+            >
+              H-LIVE
+            </v-btn> -->
+          <!-- </template> -->
+        <!-- </router-link> -->
+
+        <!-- <v-list>
           <v-list-item
             v-for="n in 5"
             :key="n"
@@ -80,8 +82,8 @@
           >
             <v-list-item-title>Option {{ n }}</v-list-item-title>
           </v-list-item>
-        </v-list>
-      </v-menu>
+        </v-list> -->
+      <!-- </v-menu> -->
     </v-app-bar>
 
     <v-main>
