@@ -2,7 +2,7 @@
   <v-app>
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
-        <v-flex v-for="i in 3" :key="`4${i}`" xs4>
+        <v-flex v-for="i in liveLen" :key="`4${i}`" xs4>
           <v-card
             :loading="loading"
             class="mx-auto my-12"
@@ -86,18 +86,28 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     data: () => ({
       loading: false,
       selection: 1,
+      liveLen: 0,
     }),
-
+    created() {
+      this.liveDataSelect()
+    },
     methods: {
       reserve () {
         this.loading = true
-
         setTimeout(() => (this.loading = false), 2000)
       },
+      liveDataSelect(){
+        axios.get("http://127.0.0.1:8000/live/")
+        .then( (result)  => {
+          this.liveLen = result.data.length
+        })
+      }
     },
   }
 </script>
