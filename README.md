@@ -54,14 +54,6 @@ Han Nune Live Chat Analytics Platform
     - pip install markdown
     - pip install django-filter
 
-7. Vue API
-    - npm install axias
-
-8. Django CORS 처리
-    - pip install django-cors-headers
-    - settings.py에 INSTALLED_APPS = ['corsheaders', # CORS 관련 추가] 추가
-    - settings.py에 CORS_ALLOWED_ORIGINS 추가
-
 
 
 - DEFAULT_MODEL 은 기본적으로 PyKomoran에 포함된 모델로,
