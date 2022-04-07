@@ -12,7 +12,7 @@ conn = pymysql.connect(
 
 curs = conn.cursor() #DB와 상호 작용을 위해 cursor 객체를 생성한다
 
-with open('data/SentiWord_info.json', encoding='utf-8-sig', mode='r') as f:
+with open('./SentiWord_info.json', encoding='utf-8-sig', mode='r') as f:
     data = json.load(f)
     # result = ['None','None']
     for i in range(0, len(data)):

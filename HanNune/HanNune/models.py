@@ -45,6 +45,7 @@ class sentiword_live_score(models.Model):
     positive = models.IntegerField()
     power_positive = models.IntegerField()
     live_id = models.IntegerField()
+    total = models.IntegerField()
 
     class Meta:
         managed = False

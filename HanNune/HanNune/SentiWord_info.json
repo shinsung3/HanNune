@@ -38496,7 +38496,7 @@
 },
 {
 	"word": "시근시근하다",
-	"word_root": "시",
+	"word_root": "시근",
 	"polarity": "-1"
 },
 {
@@ -48226,7 +48226,7 @@
 },
 {
 	"word": "오크",
-	"word_root": "오",
+	"word_root": "오크",
 	"polarity": "-1"
 },
 {
@@ -48411,7 +48411,7 @@
 },
 {
 	"word": "온하다",
-	"word_root": "오",
+	"word_root": "온",
 	"polarity": "1"
 },
 {
@@ -48576,7 +48576,7 @@
 },
 {
 	"word": "올ㅋ",
-	"word_root": "오",
+	"word_root": "올",
 	"polarity": "1"
 },
 {
@@ -52346,7 +52346,7 @@
 },
 {
 	"word": "이뭐병",
-	"word_root": "이",
+	"word_root": "병",
 	"polarity": "-1"
 },
 {
@@ -52371,7 +52371,7 @@
 },
 {
 	"word": "이쁘장스럽다",
-	"word_root": "이",
+	"word_root": "이쁘",
 	"polarity": "2"
 },
 {
@@ -56107,7 +56107,7 @@
 {
 	"word": "저는",
 	"word_root": "저",
-	"polarity": "-1"
+	"polarity": "0"
 },
 {
 	"word": "저는 모양",
@@ -74213,5 +74213,15 @@
 	"word": "알쏭달쏭하다",
 	"word_root": "알쏭달쏭",
 	"polarity": "-1"
+},
+{
+	"word": "잘봤어요",
+	"word_root": "잘봤",
+	"polarity": "2"
+},
+{
+	"word": "개꿀",
+	"word_root": "꿀",
+	"polarity": "2"
 }
 ]
