@@ -63,6 +63,10 @@ Han Nune Live Chat Analytics Platform
     - settings.py에 CORS_ALLOWED_ORIGINS 추가
 
 
+## 에러가 나면 어떻게 대응할까?
+- npm ERR! code ENOENT 에러
+    - npm 실행은 package.json이 있는 곳에서 하자 :)
+
 
 - DEFAULT_MODEL 은 기본적으로 PyKomoran에 포함된 모델로,
 - KOMORAN의 DEFAULT_MODEL 에 대응합니다.

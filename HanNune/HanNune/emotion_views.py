@@ -59,13 +59,22 @@ def insertLiveChatSentiwordController(request, live_id):
             positive = dic['1']
             power_positive = dic['2']
             live_id = live_id
+            total = int(power_negative) + int(negative) + int(positive) + int(power_positive)
             sentiword_live_score(id=id,power_negative=power_negative, negative=negative, neutrality=neutrality, positive=positive,
-                            power_positive=power_positive,live_id=live_id).save()
+                            power_positive=power_positive,live_id=live_id, total=total).save()
             # serializer = LiveChatSerializer(data=request.data, many=True)
             # print(serializer)
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','POST', 'DELETE', 'PUT'])
+def allLiveChatSentiwordController(request):
+    liveChatData = sentiword_live_score.objects.values()
+    # print(liveChatData)
+    if request.method == 'GET':
+        serializer = SentiWordLiveScoreSerializer(liveChatData, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 def index_home(request):
     print("Hello World")
@@ -95,10 +104,10 @@ komoran = Komoran("EXP")
 ksl = KnuSL
 dic = {"-2":0, "-1":0, "0":0, "1":0, "2":0}
 def emotionAnalytics(word):
-    print(word)
+    # print(word)
     if "즤" not in word:
-        tokens = komoran.get_morphes_by_tags(word)
-        print(len(tokens))
+        tokens = komoran.get_morphes_by_tags(word, tag_list=['NNP', 'NNG', 'VA']) #고유 명사, 일반 명사, 형용사만 추출
+        # print(len(tokens))
         # print("-2:매우 부정, -1:부정, 0:중립 or Unkwon, 1:긍정, 2:매우 긍정")
         if len(tokens)>0:
             for token in tokens:

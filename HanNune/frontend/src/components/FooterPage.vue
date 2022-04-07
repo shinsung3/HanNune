@@ -4,6 +4,6 @@
       dark
     >
     <v-spacer></v-spacer>
-    @COPYRIGHT VITAMIN PLUS - HANUNE [Hansome 2 Team] Nustar, HaSubin
+    @COPYRIGHT VITAMIN PLUS - HANUNE [Handsome 2 Team] Nustar, HaSubin
     </v-footer>
 </template>
