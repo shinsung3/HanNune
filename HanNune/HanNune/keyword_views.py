@@ -12,7 +12,6 @@ from rest_framework.response import Response
 
 import pandas as pd
 from collections import Counter
-import wordcloud
 from PyKomoran import Komoran, DEFAULT_MODEL
 import os
 
@@ -30,11 +29,6 @@ def keywordPKController(request, live_id):
     if live_id:
         liveChatDataId = liveChatData.filter(live_id=live_id)
     serializer = LiveChatSerializer(liveChatDataId, many=True)
-
-    content = live_chat.objects.filter(live_id=live_id).values('chat_cont')
-    df = pd.DataFrame(content)
-
-    makeWordCloud(df.chat_cont)
 
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -93,11 +87,3 @@ def keywordAnalytics(words):
     noun_list = word_count.most_common(100)
 
     return noun_list
-
-def makeWordCloud(contents):
-    fontpath = 'H2GTRM.ttf'
-    # filename = os.path.join('', 'images\wordcloud01.png')        
-
-    wordcloud = wordcloud.WordCloud(font_path=fontpath, background_color='white',max_font_size=100)
-    wordcloud.generate_from_frequencies(dict(contents))
-    wordcloud.to_file('wordcloud01.png')
