@@ -1,21 +1,16 @@
 <template>
     <v-app>
-        <v-div>
+        <div>
             <header-page/>
-        </v-div>
-        <v-div>
+        </div>
+        <div>
             <br>
             <br>
             <br>
             <br>
             <br>
-            <v-btn color="primary" @click="searchKeyword">get data</v-btn>
-            <div v-for="(v, i) in keyword" :key="`${i}`">
-                <p> keyword rank : {{ v.keyword_rank }} </p>
-                <p> keyword : {{ v.keyword }} </p>
-                <p> keyword freq : {{ v.keyword_freq }} </p>
-            </div>
-        </v-div>
+            <div id="word-cloud"></div>
+        </div>
         <footer-page/>
     </v-app>
 </template>
@@ -25,20 +20,14 @@ import FooterPage from '../FooterPage.vue'
 import HeaderPage from '../HeaderPage.vue'
 import axios from 'axios'
 
-var live_id = '994'
+var live_id = '1249'
 
   export default {
     components: { HeaderPage, FooterPage },
     name: 'KeywordPage',
     data() {
         return {
-            view: false,
-            keyword: {
-                live_id: '',
-                keyword_rank:'',
-                keyword: '',
-                keyword_freq:''
-            }
+            words: [],
         }
     },
     computed: {
@@ -46,21 +35,67 @@ var live_id = '994'
             return this.posts.length > 0
         }
     },
-    created() {
+    mounted() {
         axios.get('http://127.0.0.1:8000/post/keyword/live/'+live_id)
             .then( (result)  => {
-                this.keyword = result.data
+                var raw = result.data;
+                this.words = this.makeKeywordArray(raw);
+                console.log(this.words)
+                this.genLayout()
             })
     },
     methods: {
-        searchKeyword() {
-            axios.get('http://127.0.0.1:8000/post/keyword/live/'+live_id)
-            .then( (result)  => {
-                console.log(result.data)
-                this.keyword=result.data
-                console.log(this.keyword)
-            })
+        makeKeywordArray(arr){
+            var tmpArray = [];
+            for (var i = 0 ; i < arr.length; i++){
+                tmpArray.push({
+                    text: arr[i].keyword,
+                    size: parseInt(parseFloat(arr[i].keyword_freq)/parseFloat(arr[0].keyword_freq) * 50)
+                })
+            }
+            return tmpArray
+        },
+
+        genLayout() {
+            const cloud = require('d3-cloud')
+            cloud() // Cloud layout 생성
+              .words(this.words) // layout에 넣을 단어들
+              .padding(1) // 단어들의 사이 공간 좁게 (1)
+              .font("Impact") // 폰트
+              .fontSize((d) => {
+                return d.size;
+              }) // 폰트 크기 결정 words 내에 size 사용
+              .on("end", this.end) // 배치가 끝나면 end 함수 부르기
+              .start() // 배치 시작
+              .stop(); // 계속 호출하지 않고 한번만 호출할 것이기 때문에 바로 stop()
+        },
+
+        end(words) {
+            const d3 = require("d3")
+            const width = 300
+            const height = 300
+
+            d3.select("#word-cloud")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .style("background", "white")
+                .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")") // g를 중심에서 단어들을 그리기 때문에 g를 svg 중심으로 이동
+                .selectAll("text")
+                .data(words)
+                .enter()
+                .append("text")
+                .style("font-size", (d) => {
+                    return d.size + "px";
+                })
+                .style("font-family", "Impact")
+                .attr("text-anchor", "middle")
+                .attr("transform", (d) => {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text((d) => d.text)
         }
     }
-  }
+ }
 </script>

@@ -55,7 +55,8 @@ Han Nune Live Chat Analytics Platform
     - pip install django-filter
 
 7. Vue API
-    - npm install axias
+    - npm install axios
+    - npm install --save d3 d3-cloud
 
 8. Django CORS 처리
     - pip install django-cors-headers
