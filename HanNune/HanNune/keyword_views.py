@@ -19,7 +19,6 @@ import os
 def keywordController(request):
     if request.method == 'GET':
         liveChatData = live_chat.objects.filter(live_id='994').values()
-        # print(liveChatData)
     return Response(data=liveChatData, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST', 'DELETE', 'PUT'])
@@ -35,8 +34,6 @@ def keywordPKController(request, live_id):
 @api_view(['GET','POST', 'DELETE', 'PUT'])
 def insertLiveChatKeywordController(request, live_id):
     liveChatDataId = live_keyword_rank.objects.filter(live_id=live_id)
-    print(request.method)
-    print(request)
     if request.method == 'GET':
         serializer = LiveKeywordRankSerializer(liveChatDataId, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -46,9 +43,8 @@ def insertLiveChatKeywordController(request, live_id):
             words = []
             for chatData in liveChatData:
                 words.append(chatData.chat_cont)
-            
+
             noun_list = keywordAnalytics(words)
-            print(noun_list)
 
             for i in range(0,len(noun_list)):                
                 live_id = live_id
@@ -56,11 +52,12 @@ def insertLiveChatKeywordController(request, live_id):
                 keyword = noun_list[i][0]
                 keyword_freq = noun_list[i][1]
                 live_keyword_rank(live_id=live_id, keyword_rank=keyword_rank, keyword=keyword, keyword_freq=keyword_freq).save()
+            
+            return Response(status=status.HTTP_200_OK)   
         elif len(liveChatDataId) > 0 :
             serializer = LiveKeywordRankSerializer(liveChatDataId, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
             
-        return Response(status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -71,8 +68,11 @@ komoran = Komoran("EXP")
 
 def keywordAnalytics(words):
     nouns=[]
+
     for t in words:
-        nouns += komoran.get_morphes_by_tags(str(t), tag_list=['NNP', 'NNG', 'VA']) #고유 명사, 일반 명사, 형용사만 추출
+        if '즤' not in t:
+            nouns += komoran.get_morphes_by_tags(str(t), tag_list=['NNP', 'NNG', 'VA']) #고유 명사, 일반 명사, 형용사만 추출
+        
 
     #불용어
     stop_words = "!!! !! 당 상 듀 시네 시구 해주 신주 같 스 크 레 우 앙 링 리 오 슈 다 안 작 오 이용 용 드 아아 오오 녀"

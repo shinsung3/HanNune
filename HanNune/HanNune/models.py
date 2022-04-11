@@ -52,8 +52,9 @@ class sentiword_live_score(models.Model):
         db_table = 'sentiword_live_score'
 
 class live_keyword_rank(models.Model):
-    live_id = models.CharField(max_length=20, null=True)
-    keyword_rank = models.IntegerField(primary_key=True)
+    live_keyword_sn = models.AutoField(primary_key=True)
+    live_id = models.CharField(max_length=20)
+    keyword_rank = models.IntegerField(null=True)
     keyword = models.CharField(max_length=100, null=True)
     keyword_freq = models.IntegerField(null=True)
 
