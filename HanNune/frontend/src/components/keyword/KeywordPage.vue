@@ -36,7 +36,7 @@ var live_id = '1249'
         }
     },
     mounted() {
-        axios.get('http://127.0.0.1:8000/post/keyword/live/'+live_id)
+        axios.get('http://127.0.0.1:8000/keyword/live/'+live_id)
             .then( (result)  => {
                 var raw = result.data;
                 this.words = this.makeKeywordArray(raw);

@@ -35,5 +35,5 @@ urlpatterns = [
     #keyword
     path('keyword/', keyword_views.keywordController, name="keyword"), #chat전체 호출
     path('keyword/<int:live_id>/', keyword_views.keywordPKController, name="keyword_pk"), #live_id로 호출
-    path('post/keyword/live/<int:live_id>/', keyword_views.insertLiveChatKeywordController, name="keywordSearch"), #live_id로 호출
+    path('keyword/live/<int:live_id>/', keyword_views.insertLiveChatKeywordController, name="keywordSearch"), #live_id로 호출
 ]

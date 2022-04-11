@@ -98,6 +98,7 @@
       selection: 1,
       liveLen: 0,
       wordScore:[],
+      hotKeyword:[]
     }),
     created() {
       this.liveDataSelect()
@@ -115,10 +116,11 @@
           for(var i = 0; i<result.data.length; i++){
             this.liveImgUrlArray[i] = result.data[i].live_img_url;
             this.live[i] = result.data[i];
-            console.log(this.live)
           }
           this.wordScoreSelect()
           console.log(this.wordScore)
+          this.hotKeywordSelect()
+          console.log(this.hotKeyword)
         })
       },
       wordScoreSelect(){
@@ -129,8 +131,34 @@
             this.wordScore.push(result.data);
           })
         }
-      }
+      },
+      hotKeywordSelect(){
+        for(var i = 0; i<this.liveLen; i++){
+          axios.get("http://127.0.0.1:8000/keyword/live/"+this.live[i].live_id)
+          .then((result)=>{
+            var temp = result.data
+            this.hotKeyword.push(this.makeHotKeywordArray(temp))
+            console.log(this.hotKeyword)
+          })
+        }
+      },
+      makeHotKeywordArray(arr){
+        var tempArray = []
 
+        tempArray.push({
+          live_id: arr[0].live_id,
+          params:{
+            first: arr[0].keyword,
+            second: arr[1].keyword,
+            third: arr[2].keyword,
+            forth: arr[3].keyword,
+            fifth: arr[4].keyword,
+            sixth: arr[5].keyword,
+          }
+        })
+
+        return tempArray
+      }
     },
   }
 </script>
