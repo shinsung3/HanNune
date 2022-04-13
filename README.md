@@ -31,7 +31,7 @@ Han Nune Live Chat Analytics Platform
     - eslint 환경 설정 : npx eslint --init
     - npm install vue-router@3 : page 이동 router 추가
     - npm install vue-router@next --save : router 설치
-    - npm install vuex@next --save : vuex 설치
+    - npm install vuex@2.0.0 : vuex2 설치
     - npm run build
     - npm run serve : 실행
 4. 감정 분석

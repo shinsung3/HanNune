@@ -56,7 +56,7 @@
               </v-card-text>
 
               <v-divider class="mx-4"></v-divider>
-              <v-card-title class="v-keyword">HOT KEYWORD</v-card-title>
+              <v-card-title class="v-keyword">6 HOT KEYWORD</v-card-title>
 
               <v-card-text>
                 <v-chip-group
@@ -64,12 +64,14 @@
                   active-class="deep-purple accent-4 white--text"
                   column
                 >
-                  <v-chip>5:30PM</v-chip>
-                  <v-chip>7:30PM</v-chip>
-                  <v-chip>8:00PM</v-chip>
-                  <v-chip>9:00PM</v-chip>
-                  <v-chip>9:00PM</v-chip>
-                  <v-chip>9:00PM</v-chip>
+                  <v-chip>{{hotKeyword[i-1][0].first}}</v-chip>
+                  <v-chip>{{hotKeyword[i-1][0].second}}</v-chip>
+                  <v-chip>{{hotKeyword[i-1][0].third}}</v-chip>
+                  <v-chip>{{hotKeyword[i-1][0].fourth}}</v-chip>
+                  <v-chip>{{hotKeyword[i-1][0].fifth}}</v-chip>
+                  <v-chip>{{hotKeyword[i-1][0].sixth}}</v-chip>
+                  <!-- <v-chip>{{hotKeyword[i-1][0].seventh}}</v-chip>
+                  <v-chip>{{hotKeyword[i-1][0].eighth}}</v-chip> -->
                 </v-chip-group>
               </v-card-text>
 
@@ -101,6 +103,7 @@
       selection: 1,
       liveLen: 0,
       wordScore:[],
+      hotKeyword:[]
     }),
     created() {
       this.liveDataSelect()
@@ -121,10 +124,12 @@
           for(var i = 0; i<result.data.length; i++){
             this.liveImgUrlArray[i] = result.data[i].live_img_url;
             this.live[i] = result.data[i];
-            console.log(this.live)
+            // console.log(this.live)
           }
           this.wordScoreSelect()
-          console.log(this.wordScore)
+          // console.log(this.wordScore)
+          this.hotKeywordSelect()
+          console.log(this.hotKeyword)
         })
       },
       wordScoreSelect(){
@@ -135,6 +140,33 @@
             this.wordScore.push(result.data);
           })
         }
+      },
+      hotKeywordSelect(){
+        for(var i = 0; i<this.liveLen; i++){
+          axios.get("http://127.0.0.1:8000/keyword/live/"+this.live[i].live_id)
+          .then((result)=>{
+            var temp = result.data
+            this.hotKeyword.push(this.makeHotKeywordArray(temp))
+            // console.log(this.hotKeyword)
+          })
+        }
+      },
+      makeHotKeywordArray(arr){
+        var tempArray = []
+
+        tempArray.push({
+          live_id: arr[0].live_id,
+          first: arr[0].keyword,
+          second: arr[1].keyword,
+          third: arr[2].keyword,
+          fourth: arr[3].keyword,
+          fifth: arr[4].keyword,
+          sixth: arr[5].keyword,
+          seventh:arr[6].keyword,
+          eighth: arr[7].keyword
+        })
+
+        return tempArray
       },
       moveDetailPage(idx){
         this.$router.push({
