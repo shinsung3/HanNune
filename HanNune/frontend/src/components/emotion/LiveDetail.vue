@@ -5,9 +5,12 @@
     </v-col>
     <v-col>
       <p>이 페이지는 ID.{{ id }}의 상세를 출력합니다.</p>
-      {{liveName}}
-      {{imgUrl}}
-      {{liveInfo}}
+      <!-- {{liveName}} -->
+      <!-- {{imgUrl}} -->
+      <!-- {{liveInfo}} -->
+      <!-- {{this.$store.getters.getNumber()}} -->
+      <!-- {{this.store.state.count}} -->
+      {{n}}
     </v-col>
     <footer-page/>
   </v-app>
@@ -16,20 +19,12 @@
 <script>
 import FooterPage from '../FooterPage.vue'
 import HeaderPage from '../HeaderPage.vue'
+import store from '@/store/emotionDetail'
   export default {
-    created() {
-        console.log(this.name);
-    },
-    props: {
-        id: String,
-        name: String,
-        imgUrl: String,
-        liveInfo: Array
-    },
     computed: {
-        liveName: function () {
-            return this.name
-        }
+      n(){
+        return store.state.n
+      }
     },
     components: { HeaderPage, FooterPage },
     name: 'live-detail',
