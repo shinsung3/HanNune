@@ -5,7 +5,6 @@ import HomePage from '@/components/HomePage';
 import KeywordPage from '@/components/keyword/KeywordPage';
 import EmotionPage from '@/components/emotion/EmotionMainPage';
 import LiveDetailPage from '@/components/emotion/LiveDetail';
-import KeywordDetail from '@/components/keyword/KeywordPageList';
 
 Vue.use(VueRouter); // router 기능 확장 선언
 
@@ -43,20 +42,6 @@ const router = new VueRouter({
       path:'/keyword',
       name:'keyword',
       component: KeywordPage
-    },
-    {
-      path:'/keyword/detail',
-      name:'keyword-detail',
-      component: KeywordDetail,
-      props: true,
-      childrean:[
-        {
-          path:':id',
-          name:'keyword-detail',
-          component: KeywordDetail,
-          props: true
-        },
-      ]
     }
   ]
 });
