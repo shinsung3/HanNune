@@ -21,7 +21,7 @@
                   </v-col>
                   <v-col cols="8">
                     <v-card-text>
-                      <span class="font-weight-bold ml-8 mb-2" style="font-size:large">
+                      <span class="font-weight-bold ml-8 mb-2" style="font-size:x-large">
                         {{live[0].live_name}}
                       </span>
                       <br/>
@@ -44,13 +44,19 @@
                         </v-timeline-item>
                       </v-timeline>
                     </v-card-text>
+                    <br/>
+                    <v-card-title>
+                      <span class="font-weight-bold ml-8 mb-2" style="font-size:x-large">
+                        HOT KEYWORD
+                      </span>
+                    </v-card-title>
+                    <div id="word-cloud"></div>
                   </v-col>
                 </v-row>
               </v-flex>
             </v-layout>
           </v-container>
         </v-row>
-        <div id="word-cloud"></div>
       </v-col>
     <footer-page/>
   </v-app>
@@ -97,9 +103,6 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
         // message: 'Did you still want to grab lunch today?',
         cnt: '',
         color: 'green',
-      },
-      {
-        words: [],
       }
     ],
     }),
@@ -123,7 +126,7 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
             .then( (result)  => {
                 var raw = result.data;
                 this.words = this.makeKeywordArray(raw);
-                console.log(this.words)
+                // console.log(this.words)
                 this.genLayout()
             })
     },
@@ -136,6 +139,17 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
         .then( (result)  => {
           // console.log(result.data)
           this.live = result.data;
+        })
+      },
+      wordScoreSelect(){
+        axios.get("http://127.0.0.1:8000/emotion/live/score/"+this.id)
+        .then((result)=>{
+          this.wordScore.push(result.data);
+          // console.log(result.data)
+          this.messages[0].cnt = this.wordScore[0][0].power_positive;
+          this.messages[1].cnt = this.wordScore[0][0].positive;
+          this.messages[2].cnt = this.wordScore[0][0].power_negative;
+          this.messages[3].cnt = this.wordScore[0][0].negative;
         })
       },
       makeKeywordArray(arr){
@@ -167,10 +181,11 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
         end(words) {
             d3.select("#word-cloud")
                 .append("svg")
-                .attr("width", width)
-                .attr("height", height)
+                .attr("width", 700)
+                .attr("height", 400)
                 .style("background", "white")
-                .attr("viewBox", "125 125 250 250")
+                .attr("viewBox", "110 120 330 280")
+                .attr("preserveAspectRatio", "none")
                 .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")") // g를 중심에서 단어들을 그리기 때문에 g를 svg 중심으로 이동
                 .selectAll("text")
@@ -188,17 +203,6 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
                 .text((d) => d.text)
-      },
-      wordScoreSelect(){
-        axios.get("http://127.0.0.1:8000/emotion/live/score/"+this.id)
-        .then((result)=>{
-          this.wordScore.push(result.data);
-          console.log(result.data)
-          this.messages[0].cnt = this.wordScore[0][0].power_positive;
-          this.messages[1].cnt = this.wordScore[0][0].positive;
-          this.messages[2].cnt = this.wordScore[0][0].power_negative;
-          this.messages[3].cnt = this.wordScore[0][0].negative;
-        })
       },
     }
   }
