@@ -39,7 +39,7 @@
                         dense
                         half-increments
                         readonly
-                        size=""
+                        size="14"
                       ></v-rating>
 
                       <div class="grey--text ms-4">
@@ -70,8 +70,6 @@
                   <v-chip>{{hotKeyword[i-1][0].fourth}}</v-chip>
                   <v-chip>{{hotKeyword[i-1][0].fifth}}</v-chip>
                   <v-chip>{{hotKeyword[i-1][0].sixth}}</v-chip>
-                  <!-- <v-chip>{{hotKeyword[i-1][0].seventh}}</v-chip>
-                  <v-chip>{{hotKeyword[i-1][0].eighth}}</v-chip> -->
                 </v-chip-group>
               </v-card-text>
 
@@ -79,9 +77,9 @@
                 <v-btn
                   color="deep-purple lighten-2"
                   text
-                  @click="reserve"
+                  @click="moveDetailPage(i-1)"
                 >
-                  Reserve
+                  Go Detail
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -100,13 +98,14 @@
       liveImgUrlArray :[],
       live:[],
       loading: false,
-      selection: 1,
+      selection: parseInt(Math.random()*10),
       liveLen: 0,
       wordScore:[],
       hotKeyword:[]
     }),
     created() {
       this.liveDataSelect()
+      this.selectionFun()
       // this.wordScoreSelect()
     },
     computed: {
@@ -178,8 +177,7 @@
             liveInfo: this.live[idx]
           }
         })
-      }
-
+      },
     },
   }
 </script>
