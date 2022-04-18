@@ -24,6 +24,7 @@
                       <span class="font-weight-bold ml-8 mb-2" style="font-size:large">
                         {{live[0].live_name}}
                       </span>
+                      <br/>
                       <v-timeline
                         align-top
                         dense
@@ -36,9 +37,9 @@
                         >
                           <div>
                             <div class="font-weight-normal">
-                              <strong>{{ message.from }}</strong> @{{ message.time }}
+                              <strong>{{ message.from }}</strong> {{ message.cnt }}개
                             </div>
-                            <div>{{ message.message }}</div>
+                            <!-- <div>{{ message.message }}</div> -->
                           </div>
                         </v-timeline-item>
                       </v-timeline>
@@ -70,24 +71,31 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
   export default {
     data:()=>({
       live:[],
+      wordScore:[],
       messages: [
       {
-        from: 'You',
-        message: `Sure, I'll see you later.`,
-        time: '10:42am',
+        from: '강한 긍정단어',
+        // message: 'Did you still want to grab lunch today?',
+        cnt: '',
         color: 'deep-purple lighten-1',
       },
       {
-        from: 'John Doe',
-        message: 'Yeah, sure. Does 1:00pm work?',
-        time: '10:37am',
+        from: '긍정단어',
+        // message: `Sure, I'll see you later.`,
+        cnt: '',
+        color: 'deep-purple lighten-1',
+      },
+      {
+        from: '강한 부정단어',
+        // message: 'Yeah, sure. Does 1:00pm work?',
+        cnt: '',
         color: 'green',
       },
       {
-        from: 'You',
-        message: 'Did you still want to grab lunch today?',
-        time: '9:47am',
-        color: 'deep-purple lighten-1',
+        from: '부정단어',
+        // message: 'Did you still want to grab lunch today?',
+        cnt: '',
+        color: 'green',
       },
       {
         words: [],
@@ -103,6 +111,7 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
       }
     },
     created(){
+      this.wordScoreSelect();
       this.liveIdData();
     },
     props: {
@@ -121,10 +130,10 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
     name: 'live-detail',
     methods:{
       liveIdData(){
-        console.log(this.id);
+        // console.log(this.id);
         axios.get("http://127.0.0.1:8000/live/"+this.id)
         .then( (result)  => {
-          console.log(result.data)
+          // console.log(result.data)
           this.live = result.data;
         })
       },
@@ -178,7 +187,18 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
                 .text((d) => d.text)
-        }
+      },
+      wordScoreSelect(){
+        axios.get("http://127.0.0.1:8000/emotion/live/score/"+this.id)
+        .then((result)=>{
+          this.wordScore.push(result.data);
+          console.log(result.data)
+          this.messages[0].cnt = this.wordScore[0][0].power_positive;
+          this.messages[1].cnt = this.wordScore[0][0].positive;
+          this.messages[2].cnt = this.wordScore[0][0].power_negative;
+          this.messages[3].cnt = this.wordScore[0][0].negative;
+        })
+      },
     }
   }
 </script>
