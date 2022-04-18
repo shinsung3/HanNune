@@ -63,7 +63,7 @@ import store from '@/store/emotionDetail'
 import axios from 'axios'
 
 const d3 = require("d3")
-const width = 500;     
+const width = 500;
 const height = 500;
 
 var color = d3.scaleOrdinal(d3.schemeSet3);
@@ -72,6 +72,7 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
     data:()=>({
       live:[],
       wordScore:[],
+      words:[],
       messages: [
       {
         from: '강한 긍정단어',
