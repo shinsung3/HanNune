@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import emotion_views, keyword_views, live_views
+
+from . import emotion_views, keyword_views, live_views, goods_views, goods_review_views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -36,4 +37,10 @@ urlpatterns = [
     path('keyword/', keyword_views.keywordController, name="keyword"), #chat전체 호출
     path('keyword/<int:live_id>/', keyword_views.keywordPKController, name="keyword_pk"), #live_id로 호출
     path('keyword/live/<int:live_id>/', keyword_views.insertLiveChatKeywordController, name="keywordSearch"), #live_id로 호출
+
+    #goods
+    path('goods/', goods_views.goodsContoller, name="goods"), #goods 전체 호출
+
+    #review
+    path('review/<str:god_no>/', goods_review_views.goodsReviewContoller, name="goodsReview"), #god_no으로 리뷰 호출
 ]
