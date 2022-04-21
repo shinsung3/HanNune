@@ -23,22 +23,37 @@
           HANUNE
         </v-toolbar-title>
       </router-link>
-      <v-menu>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            v-bind="attrs"
-            v-on="on"
-            width="200"
-            x-large
-            text
-            height="100"
-          >
-            HOME
-          </v-btn>
-        </template>
-      </v-menu>
-            <v-menu>
-        <template v-slot:activator="{ on, attrs }">
+      <!-- <v-menu> -->
+        <!-- <template v-slot:activator="{ on, attrs }"> -->
+      <v-divider
+        class="mx-4"
+        vertical
+      ></v-divider>
+      <router-link
+        style="text-decoration:none; color:#fff;"
+        to="/">
+        <v-btn
+          v-bind="attrs"
+          v-on="on"
+          width="200"
+          x-large
+          text
+          height="100"
+        >
+          HOME
+        </v-btn>
+      </router-link>
+        <!-- </template> -->
+      <!-- </v-menu> -->
+      <!-- <v-menu> -->
+        <!-- <template v-slot:activator="{ on, attrs }"> -->
+        <v-divider
+        class="mx-4"
+        vertical
+      ></v-divider>
+          <router-link
+            style="text-decoration:none;"
+            to="/goods">
           <v-btn
             v-bind="attrs"
             v-on="on"
@@ -49,9 +64,10 @@
           >
             H-GOODS
           </v-btn>
-        </template>
+          </router-link>
+        <!-- </template> -->
 
-        <v-list>
+        <!-- <v-list>
           <v-list-item
             v-for="n in 5"
             :key="n"
@@ -59,10 +75,14 @@
           >
             <v-list-item-title>Option {{ n }}</v-list-item-title>
           </v-list-item>
-        </v-list>
-      </v-menu>
+        </v-list> -->
+      <!-- </v-menu> -->
       <!-- <v-menu> -->
           <!-- <template v-slot:activator="{ on, attrs }"> -->
+      <v-divider
+        class="mx-4"
+        vertical
+      ></v-divider>
         <router-link
           style="text-decoration:none;"
           to="/live">
