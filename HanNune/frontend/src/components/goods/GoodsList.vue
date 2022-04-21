@@ -9,7 +9,6 @@
                         <v-col
                             v-for="(item, i) in items"
                             :key="i"
-                            cols="12"
                         >
                             <v-card
                                 :color="item.color"
@@ -19,15 +18,15 @@
                                     <v-col cols="3">
                                         <v-avatar
                                             class="ma-1"
-                                            width="250"
-                                            height="350"
+                                            width="200"
+                                            height="400"
                                             tile
                                             >
                                             <!-- <v-img :src="item.src"></v-img> -->
                                             <v-img src="https://cdn.hfashionmall.com/goods/THBR/21/11/12/GM0121111299837_2_ORGINL.jpg?RS=960x960&AR=0&CS=640x960"></v-img>
                                         </v-avatar>
                                     </v-col>
-                                    <v-col>
+                                    <v-col cols="7">
                                         <v-card-title
                                             class="text-h5"
                                             v-text="item.godNm"
