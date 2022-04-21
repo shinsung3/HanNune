@@ -13,7 +13,7 @@
 <script>
 import FooterPage from '../FooterPage.vue'
 import HeaderPage from '../HeaderPage.vue'
-import LiveEmotion from './LiveEmotionList.vue'
+import LiveEmotion from './LiveList.vue'
   export default {
   components: { HeaderPage, FooterPage, LiveEmotion },
     name: 'EmotionPage',
