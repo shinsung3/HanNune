@@ -63,21 +63,31 @@ class live_keyword_rank(models.Model):
         db_table = 'live_keyword_rank'
 
 class god(models.Model):
-    god_no = models.CharField(max_length=20, null=True)
+    god_no = models.CharField(primary_key=True, max_length=20)
     erp_god_no = models.CharField(max_length=60, null=True)
     dsgn_grp_no = models.CharField(max_length=60, null=True)
     god_nm = models.CharField(max_length=500, null=True)
     prdlst_cd = models.CharField(max_length=60, null=True)
     prdlst_grp_cd = models.CharField(max_length=60, null=True)
 
+    class Meta:
+        managed = False
+        db_table = 'god'
+
 class god_god_evl(models.Model):
-    god_no = models.CharField(max_length=20, null=True)
-    god_evl_turn = models.IntegerField(null=True)
+    # id = models.AutoField(primary_key=True)
+    god_no = models.CharField(primary_key=True, max_length=20)
+    god_evl_turn = models.IntegerField(unique=True)
     dsgn_grp_no = models.CharField(max_length=60, null=True)
     cstmr_nm = models.CharField(max_length=100, null=True)
     inflow_ord_sect_cd = models.CharField(max_length=60, null=True)
     god_evl_sj = models.CharField(max_length=200, null=True)
     god_evl_cont = models.CharField(max_length=4000, null=True)
+    tot_evl_score = models.CharField(max_length=10, null=True)
+    # god_god_evl_sn = models.IntegerField(null=True)
+    class Meta:
+        managed = False
+        db_table = 'god_god_evl'
 
 class god_god_evl_atch_file(models.Model):
     god_no = models.CharField(max_length=20, null=True)
