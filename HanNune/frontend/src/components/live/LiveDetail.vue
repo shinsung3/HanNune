@@ -52,6 +52,7 @@
                       </span>
                     </v-card-title>
                     <div id="word-cloud"></div>
+                    <live-chart-data :id=id></live-chart-data>
                   </v-col>
                 </v-row>
               </v-flex>
@@ -66,6 +67,7 @@
 <script>
 import FooterPage from '../FooterPage.vue'
 import HeaderPage from '../HeaderPage.vue'
+import LiveChartData from './LiveChatChart.vue'
 import store from '@/store/emotionDetail'
 import axios from 'axios'
 
@@ -131,7 +133,7 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
                 this.genLayout()
             })
     },
-    components: { HeaderPage, FooterPage },
+    components: { HeaderPage, FooterPage, LiveChartData },
     name: 'live-detail',
     methods:{
       liveIdData(){
@@ -204,7 +206,7 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
                 .text((d) => d.text)
-        }
+        },
     }
   }
 </script>

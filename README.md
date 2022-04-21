@@ -50,6 +50,19 @@ Han Nune Live Chat Analytics Platform
     - mysql client 설치 : pip install mysqlclient
     - manage.py 있는 폴더로 이동 후 -> python manage.py makemigrations
     - python manage.py migrate
+
+    * 테이블
+        - live : 라이브 방송
+        - live_chat : 라이브 방송 별 채팅
+        - live_keyword_rank : 라이브 방송 별 top 키워드 100개 저장
+        - sentiword_info
+        - sentiword_live_score
+        - god : 상품
+        - god_god_evl : 상품평
+        - god_god_evl_atch_file : 상품평 첨부파일
+        - god_god_evl_size : 상품평 사이즈 정보
+        - god_god_evl_wear_info : 상품평 사이즈 정보
+
 6. Django Rest APi
     - pip install djangorestframework
     - pip install markdown
@@ -58,6 +71,8 @@ Han Nune Live Chat Analytics Platform
 7. Vue API
     - npm install axios
     - npm install --save d3 d3-cloud
+    - npm install vue-chartjs chart.js
+    - npm install chart.js
 
 8. Django CORS 처리
     - pip install django-cors-headers
