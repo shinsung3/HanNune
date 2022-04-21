@@ -2,9 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router';
 import HomePage from '@/components/HomePage';
 
-import KeywordPage from '@/components/keyword/KeywordPage';
-import EmotionPage from '@/components/emotion/EmotionMainPage';
-import LiveDetailPage from '@/components/emotion/LiveDetail';
+import LivePage from '@/components/live/LiveMainPage';
+import LiveDetailPage from '@/components/live/LiveDetail';
+import GoodsPage from '@/components/goods/GoodsMainPage';
+
 
 Vue.use(VueRouter); // router 기능 확장 선언
 
@@ -20,7 +21,7 @@ const router = new VueRouter({
     {
       path:'/live',
       name: 'live-list',
-      component: EmotionPage
+      component: LivePage
     },
     {
       path:'/live/detail', // ':id' 매개 변수에 들어 있는 경우, 값 라이브 방송에 따른 정보로 나뉨
@@ -39,9 +40,9 @@ const router = new VueRouter({
       ]
     },
     {
-      path:'/keyword',
-      name:'keyword',
-      component: KeywordPage
+      path: "/goods",
+      name: "goods-list",
+      component:GoodsPage
     }
   ]
 });
