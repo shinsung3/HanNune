@@ -45,6 +45,7 @@
                       </v-timeline>
                     </v-card-text>
                     <br/>
+                    <v-divider></v-divider>
                     <v-card-title>
                       <span class="font-weight-bold ml-8 mb-2" style="font-size:x-large">
                         HOT KEYWORD

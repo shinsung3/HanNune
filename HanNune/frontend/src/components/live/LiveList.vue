@@ -105,11 +105,7 @@
     }),
     created() {
       this.liveDataSelect()
-      this.selectionFun()
       // this.wordScoreSelect()
-    },
-    computed: {
-      list: () => this.live
     },
     methods: {
       reserve () {
@@ -177,7 +173,7 @@
             liveInfo: this.live[idx]
           }
         })
-      },
+      }
     },
   }
 </script>
