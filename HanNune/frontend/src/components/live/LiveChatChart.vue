@@ -1,12 +1,12 @@
 <template>
     <div>
-        <canvas id="live-chart"></canvas>
-        {{ id }}
+        <canvas id="live-chart" style="height:300px; width:1000px"></canvas>
     </div>
 </template>
 
 <script>
 import Chart from 'chart.js'
+import 'chartjs-adapter-luxon'
 import axios from 'axios'
 
 export default {
@@ -24,8 +24,6 @@ export default {
     mounted() {
         this.makeGraphData()
         this.setLiveChartData(this.setDataChart())
-
-        console.log(this.liveChartData)
         this.makeChart(this.liveChartData)
     },
     methods:{
@@ -33,11 +31,12 @@ export default {
             var chartData = {
                 labels: this.timeArray,
                 datasets: [{
-                    label: 'My First dataset',
-                    // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-                    // borderColor: Utils.CHART_COLORS.red,
-                    fill: false,
+                    label: '채팅 수',
+                    fill: true,
                     data: this.countArray,
+                    borderColor: '#E1BEE7',
+                    backgroundColor: 'rgba(225,190,231,0.5)',
+                    borderWidth: 5
                 }]
             }
 
@@ -48,33 +47,22 @@ export default {
                 type: 'line',
                 data: data,
                 options: {
-                    plugins: {
-                        title: {
-                        text: 'Chart.js Time Scale',
-                        display: true
+                    responsive:false,
+                    legend: {
+                        labels: {
+                            fontColor: "black",
+                            fontSize: 10,
+                            display: false
                         }
                     },
                     scales: {
-                        x: {
+                        xAxes: [{
                             type: 'time',
                             time: {
-                                unit: 'minute',
-                                displayFormats: 'h:mm a'
-                            },
-                            display: true,
-                            offset: true,
-                            title: {
-                                display: true,
-                                text: 'Date'
+                                unit: 'month'
                             }
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'value'
-                            }
-                        }
-                    },
+                        }]
+                    }
                 },
             }
         },
@@ -87,13 +75,10 @@ export default {
 
             axios.get('http://127.0.0.1:8000/keyword/'+this.id)
             .then( result  => {
-                // console.log("result : " + result)
                 var raw = result.data
-                // console.log(raw)
                 timestamp = this.makeArray(raw)
-                // console.log(timestamp)
 
-                var index = Date.parse(timestamp[0].chatDt) // + Date(timestamp[0].chatDt).getMinutes
+                var index = Date.parse(timestamp[0].chatDt)
                 var count = 1
 
                 console.log(timestamp)
@@ -104,7 +89,9 @@ export default {
                   if(index == tempTime){
                     count += 1
                   }else{
-                    this.timeArray.push(new Date(index))
+                    var tempTimestamp = new Date(index)
+
+                    this.timeArray.push((tempTimestamp.toTimeString()).substr(0,5))
                     this.countArray.push(count)
 
                     index = index+60*1000
@@ -136,3 +123,6 @@ export default {
 }
 
 </script>
+<style scoped>
+
+</style>
