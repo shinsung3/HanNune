@@ -14,8 +14,16 @@ from rest_framework.response import Response
 @api_view(['GET', 'POST', 'DELETE', 'PUT'])
 def getGoodsReview(request, god_no):
     if request.method == 'GET':
-        goodsReview = god_god_evl.objects.values()
+        goodsReview = god_god_evl.objects.filter(god_no=god_no)
 
+        #페이징처리 해야됨
+        serializer = GoodsReviewSerializer(goodsReview, many=True)
+    return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET', 'POST', 'DELETE', 'PUT'])
+def getGoodsTotalCnt(request, god_no):
+    if request.method == 'GET':
+        goodsReview = god_god_evl.objects.filter(god_no=god_no).order_by('-god_evl_turn')[0:1]
         #페이징처리 해야됨
         serializer = GoodsReviewSerializer(goodsReview, many=True)
     return Response(data=serializer.data, status=status.HTTP_200_OK)

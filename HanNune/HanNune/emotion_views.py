@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 
 from .serializers import SentiWordLiveScoreSerializer, SentiWordGoodsScoreSerializer
-from .models import live_chat, sentiword_info, sentiword_live_score, sentiword_goods_score, god_god_evl
+from .models import live_chat, sentiword_info, sentiword_live_score, sentiword_goods_score, god_god_evl, god
 from django.db import connection, connections
 import requests
 import json
@@ -41,7 +41,7 @@ def getOrPostSentiwordScore(request, id, key):
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
     elif key == "goods":
-        goodsReviewDataId = sentiword_goods_score.objects.filter(id=id)
+        goodsReviewDataId = sentiword_goods_score.objects.filter(god_no=id)
         if request.method == 'GET':
             serializer = SentiWordGoodsScoreSerializer(goodsReviewDataId, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -50,11 +50,11 @@ def getOrPostSentiwordScore(request, id, key):
             reviewEvl = {"5":0, "4":0, "3":0, "2":0, "1":0}
             if len(goodsReviewDataId) == 0:
                 goodsReview = god_god_evl.objects.filter(god_no=id)
+                goods = god.objects.filter(god_no=id)
                 for review in goodsReview:
                     dic = emotionAnalytics(review.god_evl_cont)
                     if review.tot_evl_score != "None":
                         reviewEvl[review.tot_evl_score] += 1
-                # print(reviewEvl)
                 power_negative = dic['-2']
                 negative = dic['-1']
                 neutrality = dic['0']
@@ -67,9 +67,10 @@ def getOrPostSentiwordScore(request, id, key):
                 evl3_cnt = reviewEvl["3"]
                 evl2_cnt = reviewEvl["2"]
                 evl1_cnt = reviewEvl["1"]
+                god_nm = goods[0].god_nm
                 sentiword_goods_score(id=id,power_negative=power_negative, negative=negative, neutrality=neutrality, positive=positive,
                                 power_positive=power_positive,god_no=god_no, total=total,
-                                evl5_cnt=evl5_cnt, evl4_cnt=evl4_cnt, evl3_cnt=evl3_cnt, evl2_cnt=evl2_cnt, evl1_cnt=evl1_cnt).save()
+                                evl5_cnt=evl5_cnt, evl4_cnt=evl4_cnt, evl3_cnt=evl3_cnt, evl2_cnt=evl2_cnt, evl1_cnt=evl1_cnt, god_nm=god_nm).save()
                 return Response(status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -77,11 +78,15 @@ def getOrPostSentiwordScore(request, id, key):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET','POST', 'DELETE', 'PUT'])
-def getLiveChatSentiwordScore(request):
-    liveChatData = sentiword_live_score.objects.values()
+def getSentiwordScore(request, key):
     # print(liveChatData)
     if request.method == 'GET':
-        serializer = SentiWordLiveScoreSerializer(liveChatData, many=True)
+        if key == "live":
+            liveChatData = sentiword_live_score.objects.values()
+            serializer = SentiWordLiveScoreSerializer(liveChatData, many=True)
+        elif key=="goods":
+            goodsReviewData = sentiword_goods_score.objects.values()
+            serializer = SentiWordGoodsScoreSerializer(goodsReviewData, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 class KnuSL():

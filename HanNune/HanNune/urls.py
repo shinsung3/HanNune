@@ -29,7 +29,7 @@ urlpatterns = [
     path('live/chat/<int:live_id>/', live_views.getLiveIdChat, name="getLiveIdChat"), #live chat live_id 기준으로 호출
 
     #emotion
-    path('emotion/live/score/', emotion_views.getLiveChatSentiwordScore, name="getLiveChatSentiwordScore"), #live_id로 호출
+    path('emotion/<str:key>/score/', emotion_views.getSentiwordScore, name="getSentiwordScore"), #live_id로 호출
     path('emotion/<str:key>/score/<str:id>/', emotion_views.getOrPostSentiwordScore, name="getOrPostSentiwordScore"), #live_id로 호출
 
     #sentiword
@@ -45,4 +45,5 @@ urlpatterns = [
 
     #review
     path('review/<str:god_no>/', goods_review_views.getGoodsReview, name="getGoodsReview"), #god_no으로 리뷰 호출
+    path('review/<str:god_no>/cnt', goods_review_views.getGoodsTotalCnt, name="getGoodsTotalCnt"), #god_no기준 리뷰 개수
 ]
