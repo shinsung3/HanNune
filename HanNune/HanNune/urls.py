@@ -30,7 +30,7 @@ urlpatterns = [
 
     #emotion
     path('emotion/live/score/', emotion_views.getLiveChatSentiwordScore, name="getLiveChatSentiwordScore"), #live_id로 호출
-    path('emotion/live/score/<int:live_id>/', emotion_views.getOrPostSentiwordScore, name="getOrPostSentiwordScore"), #live_id로 호출
+    path('emotion/<str:key>/score/<str:id>/', emotion_views.getOrPostSentiwordScore, name="getOrPostSentiwordScore"), #live_id로 호출
 
     #sentiword
     path('sentiword/<str:searchWord>/', sentiword_views.getSentiword, name="getSentiword"), #live_id로 호출

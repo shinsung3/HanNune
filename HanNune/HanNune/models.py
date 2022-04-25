@@ -51,6 +51,25 @@ class sentiword_live_score(models.Model):
         managed = False
         db_table = 'sentiword_live_score'
 
+class sentiword_goods_score(models.Model):
+    id = models.CharField(primary_key=True, max_length=20)
+    power_negative = models.IntegerField()
+    negative = models.IntegerField()
+    neutrality = models.IntegerField()
+    positive = models.IntegerField()
+    power_positive = models.IntegerField()
+    god_no = models.CharField(max_length=20)
+    total = models.IntegerField()
+    evl5_cnt = models.IntegerField()
+    evl4_cnt = models.IntegerField()
+    evl3_cnt = models.IntegerField()
+    evl2_cnt = models.IntegerField()
+    evl1_cnt = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'sentiword_goods_score'
+
 class live_keyword_rank(models.Model):
     live_keyword_sn = models.AutoField(primary_key=True)
     live_id = models.CharField(max_length=20)
