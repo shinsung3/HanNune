@@ -65,6 +65,7 @@ class sentiword_goods_score(models.Model):
     evl3_cnt = models.IntegerField()
     evl2_cnt = models.IntegerField()
     evl1_cnt = models.IntegerField()
+    god_nm = models.CharField(max_length=500)
 
     class Meta:
         managed = False
