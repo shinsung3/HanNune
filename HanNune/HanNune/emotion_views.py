@@ -11,35 +11,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-@api_view(['GET', 'POST', 'DELETE', 'PUT'])
-def emotionController(request):
-    if request.method == 'GET':
-        liveChatData = live_chat.objects.values()
-        # print(liveChatData)
-    return Response(data=liveChatData, status=status.HTTP_200_OK)
-
-@api_view(['GET', 'POST', 'DELETE', 'PUT'])
-def emotionPKController(request, live_id):
-    liveChatData = live_chat.objects.all()
-    liveChatDataId = {}
-    if live_id:
-        liveChatDataId = liveChatData.filter(live_id=live_id)
-        for chatData in liveChatDataId:
-            emotionAnalytics(chatData.chat_cont)
-    serializer = LiveChatSerializer(liveChatDataId, many=True)
-    return Response(data=serializer.data, status=status.HTTP_200_OK)
-
-@api_view(['GET', 'POST', 'DELETE', 'PUT'])
-def sentiwordController(request, searchWord):
-    sentiwordInfo = sentiword_info.objects.all()
-    wordInfo = {}
-    if searchWord:
-        wordInfo = sentiwordInfo.filter(word=searchWord)
-    serializer = SentiWordInfoSerializer(wordInfo, many=True)
-    return Response(data=serializer.data, status=status.HTTP_200_OK)
-
 @api_view(['GET','POST', 'DELETE', 'PUT'])
-def insertLiveChatSentiwordController(request, live_id):
+def getOrPostSentiwordScore(request, live_id):
     print(request.method)
     print(request)
     liveChatDataId = sentiword_live_score.objects.filter(live_id=live_id)
@@ -69,15 +42,12 @@ def insertLiveChatSentiwordController(request, live_id):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET','POST', 'DELETE', 'PUT'])
-def allLiveChatSentiwordController(request):
+def getLiveChatSentiwordScore(request):
     liveChatData = sentiword_live_score.objects.values()
     # print(liveChatData)
     if request.method == 'GET':
         serializer = SentiWordLiveScoreSerializer(liveChatData, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-
-def index_home(request):
-    print("Hello World")
 
 class KnuSL():
     def data_list(wordname):

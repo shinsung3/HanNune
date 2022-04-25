@@ -12,11 +12,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 @api_view(['GET', 'POST', 'DELETE', 'PUT'])
-def goodsReviewContoller(request, god_no):
+def getGoodsReview(request, god_no):
     if request.method == 'GET':
         goodsReview = god_god_evl.objects.values()
 
         #페이징처리 해야됨
         serializer = GoodsReviewSerializer(goodsReview, many=True)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
-

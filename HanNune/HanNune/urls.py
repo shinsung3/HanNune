@@ -16,22 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from . import emotion_views, keyword_views, live_views, goods_views, goods_review_views
+from . import emotion_views, keyword_views, live_views, goods_views, goods_review_views, sentiword_views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', views.index_home, name='index'),
 
     #live
-    path('live/', live_views.liveDataController, name="liveAllData"), #live전체 호출
-    path('live/<int:live_id>', live_views.liveIdDataController, name="liveIdData"), #live_id로 호출
+    path('live/', live_views.getLiveIdInfo, name="getLiveIdInfo"), #live 정보 전체 호출
+    path('live/<int:live_id>', live_views.getLiveInfo, name="getLiveInfo"), #live_id 정보 호출
+    path('live/chat', live_views.getLiveChat, name="getLiveChat"), #live chat전체 호출
+    path('live/chat/<int:live_id>/', live_views.getLiveIdChat, name="getLiveIdChat"), #live chat live_id 기준으로 호출
 
     #emotion
-    path('emotion/', emotion_views.emotionController, name="emotion"), #chat전체 호출
-    path('emotion/<int:live_id>/', emotion_views.emotionPKController, name="emotion_pk"), #live_id로 호출
-    path('emotion/live/score/', emotion_views.allLiveChatSentiwordController, name="sentiwordSearch"), #live_id로 호출
-    path('emotion/live/score/<int:live_id>/', emotion_views.insertLiveChatSentiwordController, name="sentiwordSearch"), #live_id로 호출
-    path('sentiword/<str:searchWord>/', emotion_views.sentiwordController, name="sentiwordSearch"), #live_id로 호출
+    path('emotion/live/score/', emotion_views.getLiveChatSentiwordScore, name="getLiveChatSentiwordScore"), #live_id로 호출
+    path('emotion/live/score/<int:live_id>/', emotion_views.getOrPostSentiwordScore, name="getOrPostSentiwordScore"), #live_id로 호출
+
+    #sentiword
+    path('sentiword/<str:searchWord>/', sentiword_views.getSentiword, name="getSentiword"), #live_id로 호출
 
     #keyword
     path('keyword/', keyword_views.keywordController, name="keyword"), #chat전체 호출
@@ -42,5 +44,5 @@ urlpatterns = [
     path('goods/', goods_views.goodsContoller, name="goods"), #goods 전체 호출
 
     #review
-    path('review/<str:god_no>/', goods_review_views.goodsReviewContoller, name="goodsReview"), #god_no으로 리뷰 호출
+    path('review/<str:god_no>/', goods_review_views.getGoodsReview, name="getGoodsReview"), #god_no으로 리뷰 호출
 ]
