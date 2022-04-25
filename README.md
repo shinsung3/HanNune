@@ -73,6 +73,7 @@ Han Nune Live Chat Analytics Platform
     - npm install --save d3 d3-cloud
     - npm install vue-chartjs chart.js
     - npm install chart.js
+    - npm install --save moment
 
 8. Django CORS 처리
     - pip install django-cors-headers
