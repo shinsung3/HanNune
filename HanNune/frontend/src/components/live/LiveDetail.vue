@@ -52,8 +52,10 @@
                       </span>
                     </v-card-title>
                     <div id="word-cloud"></div>
-                    <live-chart-data :id=id></live-chart-data>
                   </v-col>
+                  <div>
+                    <canvas id="live-chart" style="height:300px; width:1000px"></canvas>
+                  </div>
                 </v-row>
               </v-flex>
             </v-layout>
@@ -67,7 +69,8 @@
 <script>
 import FooterPage from '../FooterPage.vue'
 import HeaderPage from '../HeaderPage.vue'
-import LiveChartData from './LiveChatChart.vue'
+import { Chart } from 'chart.js'
+import 'chartjs-adapter-luxon'
 import store from '@/store/emotionDetail'
 import axios from 'axios'
 
@@ -82,6 +85,9 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
       live:[],
       wordScore:[],
       words:[],
+      timeArray : [],
+      countArray : [],
+      liveChartData: '',
       messages: [
       {
         from: '강한 긍정단어',
@@ -132,8 +138,10 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
                 // console.log(this.words)
                 this.genLayout()
             })
+
+        this.makeGraphData()
     },
-    components: { HeaderPage, FooterPage, LiveChartData },
+    components: { HeaderPage, FooterPage },
     name: 'live-detail',
     methods:{
       liveIdData(){
@@ -207,6 +215,131 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
                 })
                 .text((d) => d.text)
         },
+        setDataChart() {
+            var chartData = {
+                labels: this.timeArray,
+                datasets: [{
+                    label: '채팅 수',
+                    fill: false,
+                    data: this.countArray,
+                    borderColor: '#FFD85B',
+                    // backgroundColor: 'rgba(225,190,231,0.5)',
+                    borderWidth: 5
+                }]
+            }
+
+            return chartData
+        },
+        setLiveChartData(data){
+            this.liveChartData = {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive:false,
+                    legend: {
+                        labels: {
+                            fontColor: "black",
+                            fontSize: 10,
+                            display: false
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            ticks: {
+                              // fontColor : "#FF80AB",
+                              fontSize : 10
+                            },
+                            gridLines: {
+                              // color: "rgba(251, 203, 9, 0.2)",
+                            },
+                            time: {
+                              unit: 'minute',
+                              stepSize : 5,
+                              displayFormats: {
+                                quarter: 'h:mm a'
+                              }
+                            }
+                        }],
+                        yAxes: [{
+                          ticks: {
+                            // fontColor : "#FF80AB",
+                            fontSize : 10
+                          },
+                          gridLines: {
+                              // color: "rgba(251, 203, 9, 0.2)",
+                          },
+                        }]
+                    },
+                    onClick: function(point, event) {
+                      if(event.length <= 0) return;
+                      console.log(point)
+                      console.log(event[0]['_index'])
+                    },
+                },
+            }
+            this.makeChart(this.liveChartData)
+        },
+        makeChart(chartData){
+            const ctx = document.getElementById('live-chart');
+            new Chart(ctx, chartData);
+        },
+        makeGraphData(){
+            var timestamp = []
+
+            axios.get('http://127.0.0.1:8000/keyword/'+this.id)
+            .then( result  => {
+                var raw = result.data
+                timestamp = this.makeArray(raw)
+
+                var index = Date.parse(timestamp[0].chatDt)
+                var count = 1
+
+                console.log(timestamp)
+
+                for(var i=1; i < timestamp.length ; i++){
+                  var tempTime = Date.parse(timestamp[i].chatDt)
+
+                  if(index == tempTime){
+                    count += 1
+                  }else{
+                    var tempTimestamp = new Date(index)
+
+                    this.timeArray.push((tempTimestamp.toTimeString()).substr(0,5))
+                    this.countArray.push(count)
+
+                    index = index+60*1000
+                    count = 0
+                  }
+                }
+
+                console.log(this.timeArray)
+                console.log(this.countArray)
+
+                this.setLiveChartData(this.setDataChart())
+            })
+        },
+        makeArray(chatData){
+            var tempArray = []
+            var arraySize = Object.keys(chatData).length
+    
+            for(var i = 0 ; i < arraySize ; i++){
+                var tempDate = (chatData[i].live_chat_dt).substr(0,16)
+        
+                tempArray.push({
+                    chatDt: new Date(tempDate),
+                    chatCont: chatData[i].chat_cont
+                })
+            }
+
+            return tempArray
+        },
     }
   }
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&display=swap');
+.live-chart {
+  width: 100%,
+}
+</style>
