@@ -32,7 +32,7 @@ def getOrPostKeywordRank(request, id, key):
                 noun_list = keywordAnalytics(words)
 
                 for i in range(0,len(noun_list)):                
-                    live_id = live_id
+                    live_id = id
                     keyword_rank = i+1
                     keyword = noun_list[i][0]
                     keyword_freq = noun_list[i][1]

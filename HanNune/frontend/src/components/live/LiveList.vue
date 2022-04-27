@@ -138,7 +138,7 @@
       },
       hotKeywordSelect(){
         for(var i = 0; i<this.liveLen; i++){
-          axios.get("http://127.0.0.1:8000/keyword/live/"+this.live[i].live_id)
+          axios.get("http://127.0.0.1:8000/keyword/live/rank/"+this.live[i].live_id)
           .then((result)=>{
             var temp = result.data
             this.hotKeyword.push(this.makeHotKeywordArray(temp))
