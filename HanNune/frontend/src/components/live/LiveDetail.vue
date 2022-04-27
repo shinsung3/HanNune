@@ -131,7 +131,7 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
       id:String,
     },
     mounted() {
-        axios.get('http://127.0.0.1:8000/live/'+this.id)
+        axios.get('http://127.0.0.1:8000/keyword/live/rank/'+this.id)
             .then( (result)  => {
                 var raw = result.data;
                 this.words = this.makeKeywordArray(raw);
@@ -287,15 +287,13 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
         makeGraphData(){
             var timestamp = []
 
-            axios.get('http://127.0.0.1:8000/live/'+this.id)
+            axios.get('http://127.0.0.1:8000/live/chat/'+this.id)
             .then( result  => {
                 var raw = result.data
                 timestamp = this.makeArray(raw)
 
                 var index = Date.parse(timestamp[0].chatDt)
                 var count = 1
-
-                console.log(timestamp)
 
                 for(var i=1; i < timestamp.length ; i++){
                   var tempTime = Date.parse(timestamp[i].chatDt)
@@ -312,9 +310,6 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
                     count = 0
                   }
                 }
-
-                console.log(this.timeArray)
-                console.log(this.countArray)
 
                 this.setLiveChartData(this.setDataChart())
             })
