@@ -71,7 +71,7 @@ class sentiword_goods_score(models.Model):
         managed = False
         db_table = 'sentiword_goods_score'
 
-class live_keyword_rank(models.Model):
+class keyword_live_rank(models.Model):
     live_keyword_sn = models.AutoField(primary_key=True)
     live_id = models.CharField(max_length=20)
     keyword_rank = models.IntegerField(null=True)
@@ -80,7 +80,7 @@ class live_keyword_rank(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'live_keyword_rank'
+        db_table = 'keyword_live_rank'
 
 class god(models.Model):
     god_no = models.CharField(primary_key=True, max_length=20)
@@ -154,3 +154,14 @@ class goods_emotion(models.Model):
     best_evl2_cnt = models.IntegerField()
     best_evl1_cnt = models.IntegerField()
     god_nm = models.CharField(max_length=500)
+
+class keyword_goods_rank(models.Model):
+    goods_keyword_sn = models.AutoField(primary_key=True)
+    god_no = models.CharField(max_length=20)
+    keyword_rank = models.IntegerField(null=True)
+    keyword = models.CharField(max_length=100, null=True)
+    keyword_freq = models.IntegerField(null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'keyword_goods_rank'

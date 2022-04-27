@@ -73,7 +73,7 @@ export default {
         makeGraphData(){
             var timestamp = []
 
-            axios.get('http://127.0.0.1:8000/keyword/'+this.id)
+            axios.get('http://127.0.0.1:8000/live/'+this.id)
             .then( result  => {
                 var raw = result.data
                 timestamp = this.makeArray(raw)

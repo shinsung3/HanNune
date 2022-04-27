@@ -54,7 +54,8 @@ Han Nune Live Chat Analytics Platform
     * 테이블
         - live : 라이브 방송
         - live_chat : 라이브 방송 별 채팅
-        - live_keyword_rank : 라이브 방송 별 top 키워드 100개 저장
+        - keyword_live_rank : 라이브 방송 별 top 키워드 100개 저장
+        - keyword_goods_rank : 상품평 top 키워드 100개
         - sentiword_info : 한국어 감정 사전
         - sentiword_live_score : 라이브 방송 감정분석 점수
         - sentiword_goods_score : 상품평 감정분석 점수
