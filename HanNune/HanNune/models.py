@@ -1,3 +1,4 @@
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.conf import settings
 
@@ -165,3 +166,25 @@ class keyword_goods_rank(models.Model):
     class Meta:
         managed = False
         db_table = 'keyword_goods_rank'
+
+class god_img(models.Model):
+    god_no = models.CharField(max_length=20)
+    img_tp_cd = models.CharField(max_length=20)
+    img_size_cd = models.CharField(max_length=20)
+    img_turn = models.CharField(max_length=10)
+    img_url = models.CharField(max_length=45)
+    rprst_img_yn = models.CharField(max_length=1)
+    model_img_yn = models.CharField(max_length=1)
+    img_dscr = models.CharField(max_length=45)
+    img_aprv_yn = models.CharField(max_length=1)
+    img_use_yn = models.CharField(max_length=1)
+    img_last_udt_dt = models.DateTimeField(null=True)
+    regtr_id = models.CharField(max_length=45)
+    reg_dt = models.DateTimeField(null=True)
+    udter_id = models.CharField(max_length=45)
+    udt_dt = models.DateTimeField(null=True)
+    god_img_sn = models.CharField(primary_key=True)
+
+    class Meta:
+        managed = False
+        db_table = 'god_img'
