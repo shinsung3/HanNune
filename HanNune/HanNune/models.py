@@ -105,6 +105,8 @@ class god_god_evl(models.Model):
     god_evl_cont = models.CharField(max_length=4000, null=True)
     tot_evl_score = models.CharField(max_length=10, null=True)
     # god_god_evl_sn = models.IntegerField(null=True)
+    BST_GOD_EVL_YN = models.CharField(max_length=10, null=True)
+    DVC_CD = models.CharField(max_length=10, null=True)
     class Meta:
         managed = False
         db_table = 'god_god_evl'
@@ -131,3 +133,24 @@ class god_god_evl_wear_info(models.Model):
     wear_info_sect_cd = models.CharField(max_length=60, null=True)
     wear_info_sect_detail_cd = models.CharField(max_length=60, null=True)
     wear_info_sect_detail_val = models.IntegerField(null=True)
+
+class goods_emotion(models.Model):
+    id = models.CharField(primary_key=True, max_length=20)
+    power_negative = models.IntegerField()
+    negative = models.IntegerField()
+    neutrality = models.IntegerField()
+    positive = models.IntegerField()
+    power_positive = models.IntegerField()
+    god_no = models.CharField(max_length=20)
+    total = models.IntegerField()
+    evl5_cnt = models.IntegerField()
+    evl4_cnt = models.IntegerField()
+    evl3_cnt = models.IntegerField()
+    evl2_cnt = models.IntegerField()
+    evl1_cnt = models.IntegerField()
+    best_evl5_cnt = models.IntegerField()
+    best_evl4_cnt = models.IntegerField()
+    best_evl3_cnt = models.IntegerField()
+    best_evl2_cnt = models.IntegerField()
+    best_evl1_cnt = models.IntegerField()
+    god_nm = models.CharField(max_length=500)

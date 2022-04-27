@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 
-from .serializers import SentiWordLiveScoreSerializer, SentiWordGoodsScoreSerializer
+from .serializers import SentiWordLiveScoreSerializer, SentiWordGoodsScoreSerializer, GoodsEmotionSerializer
 from .models import live_chat, sentiword_info, sentiword_live_score, sentiword_goods_score, god_god_evl, god
 from django.db import connection, connections
 import requests
@@ -128,3 +128,84 @@ def emotionAnalytics(word):
                 dic[score] = dic[score]+1
                 # print(dic)
     return dic
+
+@api_view(['GET','POST', 'DELETE', 'PUT'])
+def getGoodsIdEvl(request, id, key):
+    print(request.method)
+    if request.method == 'GET':
+        bestReview = {"5":0, "4":0, "3":0, "2":0, "1":0}
+        goodsBestReview = god_god_evl.objects.filter(god_no=id)
+        goodsReview = sentiword_goods_score.objects.filter(god_no=id)
+        # goods = god.objects.filter(god_no=id)
+        # print(goods.god_nm)
+        # print(goods[0].god_nm)
+        for review in goodsBestReview:
+            # print(review.tot_evl_score)
+            if review.BST_GOD_EVL_YN == "Y":
+                bestReview[review.tot_evl_score]+=1
+        # print(bestReview)
+        item = [{'id': id,
+                 'power_negative':goodsReview[0].power_negative,
+                 'negative' : goodsReview[0].negative,
+                 'neutrality' : goodsReview[0].neutrality,
+                 'positive' : goodsReview[0].positive,
+                 'power_positive' : goodsReview[0].power_positive,
+                 'god_no' : id,
+                 'total' : goodsReview[0].total,
+                 'evl5_cnt' : goodsReview[0].evl5_cnt,
+                 'evl4_cnt' : goodsReview[0].evl4_cnt,
+                 'evl3_cnt' : goodsReview[0].evl3_cnt,
+                 'evl2_cnt' : goodsReview[0].evl2_cnt,
+                 'evl1_cnt' : goodsReview[0].evl1_cnt,
+                 'best_evl5_cnt': bestReview['5'],
+                 'best_evl4_cnt': bestReview['4'],
+                 'best_evl3_cnt': bestReview['3'],
+                 'best_evl2_cnt': bestReview['2'],
+                 'best_evl1_cnt': bestReview['1'],
+                 'god_nm' : goodsReview[0].god_nm}]
+        serializer = GoodsEmotionSerializer(item, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+# DB에 없는 테이블 조합해서 json으로 부를떄
+@api_view(['GET','POST', 'DELETE', 'PUT'])
+def getGoodsEvl(request, key):
+    print(request.method)
+    if request.method == 'GET':
+        bestReview = {"5":0, "4":0, "3":0, "2":0, "1":0}
+        goodsReviewData = sentiword_goods_score.objects.values()
+        # goods = god.objects.filter(god_no=id)
+        # print(goods.god_nm)
+        # print(goods[0].god_nm)
+        items = []
+        for review in goodsReviewData:
+            # print(review.tot_evl_score)
+            print(review)
+            goodsId = review['god_no']
+            goodsIdReview = god_god_evl.objects.filter(god_no=goodsId)
+            goodsReview = sentiword_goods_score.objects.filter(god_no=goodsId)
+            for r in goodsIdReview:
+                if r.BST_GOD_EVL_YN == "Y":
+                    bestReview[r.tot_evl_score]+=1
+            item = {'id': goodsId,
+                    'power_negative':goodsReview[0].power_negative,
+                    'negative' : goodsReview[0].negative,
+                    'neutrality' : goodsReview[0].neutrality,
+                    'positive' : goodsReview[0].positive,
+                    'power_positive' : goodsReview[0].power_positive,
+                    'god_no' : goodsId,
+                    'total' : goodsReview[0].total,
+                    'evl5_cnt' : goodsReview[0].evl5_cnt,
+                    'evl4_cnt' : goodsReview[0].evl4_cnt,
+                    'evl3_cnt' : goodsReview[0].evl3_cnt,
+                    'evl2_cnt' : goodsReview[0].evl2_cnt,
+                    'evl1_cnt' : goodsReview[0].evl1_cnt,
+                    'best_evl5_cnt': bestReview['5'],
+                    'best_evl4_cnt': bestReview['4'],
+                    'best_evl3_cnt': bestReview['3'],
+                    'best_evl2_cnt': bestReview['2'],
+                    'best_evl1_cnt': bestReview['1'],
+                    'god_nm' : goodsReview[0].god_nm}
+            items.append(item)
+        # print(items)
+        serializer = GoodsEmotionSerializer(items, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
