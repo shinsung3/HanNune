@@ -97,37 +97,82 @@
                                         <!-- </v-expand-transition> -->
                                         </v-card-actions>
                                         <v-card-actions>
-                                            <v-btn
-                                            elevation="2"
-                                            outlined
-                                            @click="dialog = !dialog"
-                                            >비율분석</v-btn>
+                                                <!-- <v-divider></v-divider> -->
+                                                <!-- <v-card-text> -->
+                                                &nbsp;<span class="text--lighten-4 text-caption mr-2">긍정 지수
+                                                    <span class="font-weight-bold">
+                                                        ({{item.total}}개)
+                                                        &nbsp;<span style="color: #00897B;">{{item.emotion}}</span>
+                                                    </span>
+                                                </span>
+                                                <v-rating ting
+                                                :value="item.emotion"
+                                                :background-color="item.positiveColor"
+                                                :color="item.positiveColor"
+                                                dense
+                                                half-increments
+                                                readonly
+                                                size="20"
+                                                ></v-rating>
+                                                <!-- </v-card-text> -->
+                                        <!-- </v-expand-transition> -->
                                         </v-card-actions>
-                                        <v-dialog
-                                            v-model="dialog"
-                                            max-width="500px"
-                                        >
-                                            <v-card>
-                                            <v-card-text>
-                                                <v-text-field label="File name"></v-text-field>
-                                                <small class="grey--text">* This doesn't actually save.</small>
-                                            </v-card-text>
+                                        <!-- <router-link to="/goods/detail" style="text-decoration:none;"> -->
                                             <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn
-                                                text
-                                                color="primary"
-                                                @click="dialog = false"
-                                                >
-                                                Submit
-                                                </v-btn>
+                                                <v-chip
+                                                    class="ma-2"
+                                                    color="#FFFFFF"
+                                                    outlined
+                                                    @click="moveDetailPage(i)"
+                                                    >
+                                                    <v-icon left>
+                                                        mdi-label
+                                                    </v-icon>
+                                                    상품 분석 디테일 >
+                                                </v-chip>
                                             </v-card-actions>
-                                            </v-card>
-                                        </v-dialog>
+                                        <!-- </router-link> -->
                                     </v-col>
                                 </div>
                             </v-card>
                         </v-col>
+                        <!-- <v-dialog
+                            v-model="dialog"
+                            scrollable
+                            max-width="300px"
+                        >
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-card-actions>
+                                    <v-btn
+                                        elevation="2"
+                                        outlined
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        >비율분석
+                                        {{dialog}}
+                                    </v-btn>
+                                </v-card-actions>
+                            </template>
+                            <v-card>
+                                <v-card-title class="text-h5 grey lighten-2">
+                                    Privacy Policy {{dialog}}
+                                </v-card-title>
+                                <v-card-text>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </v-card-text>
+                                <v-divider></v-divider>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                    color="primary"
+                                    text
+                                    @click="hideDialog"
+                                    >
+                                    {{dialog}}
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog> -->
                     </v-row>
                 </v-container>
             </v-card>
@@ -148,7 +193,8 @@ export default {
         items: [],
         reviewTotCnt:[],
         review:[],
-        dialog: false
+        dialog: false,
+        showDialog : false
     }),
     created(){
         this.selectGod()
@@ -162,6 +208,7 @@ export default {
                     var color = "#F8BBD0";
                     var rColor = "red";
                     var bestRatingColor = "blue"
+                    var positiveColor = "teal darken-1"
                     if(i%2!=0){
                         color = "#9DC3E6";
                     }
@@ -174,6 +221,8 @@ export default {
                         evl3_cnt: result.data[i].evl3_cnt,
                         evl4_cnt: result.data[i].evl4_cnt,
                         evl5_cnt: result.data[i].evl5_cnt,
+                        emotion: parseInt(((result.data[i].positive+result.data[i].power_positive)/
+                                        (result.data[i].total))*100)*5/100,
                         best_evl1_cnt: result.data[i].best_evl1_cnt,
                         best_evl2_cnt: result.data[i].best_evl2_cnt,
                         best_evl3_cnt: result.data[i].best_evl3_cnt,
@@ -193,6 +242,7 @@ export default {
                         total: result.data[i].total,
                         color:color,
                         ratingColor:rColor,
+                        positiveColor : positiveColor,
                         // show: true,
                         totCnt: result.data[i].evl1_cnt+result.data[i].evl2_cnt+result.data[i].evl3_cnt+result.data[i].evl4_cnt+result.data[i].evl5_cnt,
                         customerCnt: parseInt(((result.data[i].evl1_cnt*1+result.data[i].evl2_cnt*2+result.data[i].evl3_cnt*3+result.data[i].evl4_cnt*4+result.data[i].evl5_cnt*5)/
@@ -293,32 +343,17 @@ export default {
                 },
             };
             var myChart = new Chart(ctx,config);
+        },
+        moveDetailPage(idx){
+            console.log(this.items[idx].godNo)
+            this.$router.push({
+                name : 'goods-detail',
+                params: {
+                    id: this.items[idx].godNo,
+                    item : this.items[idx]
+                }
+            })
         }
-        // selectGodReview(godNo, i){
-        //     axios.get("http://127.0.0.1:8000/emotion/goods/score/"+godNo)
-        //     .then((result)=>{
-
-        //         console.log("비율>>> ",result.data)
-        //         this.review.push({
-        //             evl1_cnt: result.data[0].evl1_cnt,
-        //             evl2_cnt: result.data[0].evl2_cnt,
-        //             evl3_cnt: result.data[0].evl3_cnt,
-        //             evl4_cnt: result.data[0].evl4_cnt,
-        //             evl5_cnt: result.data[0].evl5_cnt,
-        //             god_no: godNo,
-        //             id: godNo,
-        //             negative: result.data[0].negative,
-        //             power_negative: result.data[0].power_negative,
-        //             neutrality: result.data[0].neutrality,
-        //             power_positive: result.data[0].power_positive,
-        //             positive: result.data[0].positive,
-        //             total: result.data[0].total,
-        //             color:color,
-        //             ratingColor:rColor,
-        //             show: true,
-        //         })
-        //     })
-        // }
     }
 }
 </script>

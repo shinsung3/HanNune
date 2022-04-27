@@ -179,7 +179,7 @@ def getGoodsEvl(request, key):
         items = []
         for review in goodsReviewData:
             # print(review.tot_evl_score)
-            print(review)
+            # print(review)
             goodsId = review['god_no']
             goodsIdReview = god_god_evl.objects.filter(god_no=goodsId)
             goodsReview = sentiword_goods_score.objects.filter(god_no=goodsId)
