@@ -33,8 +33,6 @@
         style="text-decoration:none; color:#fff;"
         to="/">
         <v-btn
-          v-bind="attrs"
-          v-on="on"
           width="200"
           x-large
           text
@@ -55,8 +53,6 @@
             style="text-decoration:none;"
             to="/goods">
           <v-btn
-            v-bind="attrs"
-            v-on="on"
             width="200"
             x-large
             text
@@ -87,8 +83,6 @@
           style="text-decoration:none;"
           to="/live">
             <v-btn
-              v-bind="attrs"
-              v-on="on"
               width="200"
               x-large
               text
