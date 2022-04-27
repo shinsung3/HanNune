@@ -1,7 +1,7 @@
 # HanNune
 Han Nune Live Chat Analytics Platform
 
-### 1. python Django 설치
+## HaNune 프로젝트
 - python --version          : 3.8.5
 - pip --version             : pip 22.0.3
 - django-admin --version    : 4.0.3
@@ -55,13 +55,14 @@ Han Nune Live Chat Analytics Platform
         - live : 라이브 방송
         - live_chat : 라이브 방송 별 채팅
         - live_keyword_rank : 라이브 방송 별 top 키워드 100개 저장
-        - sentiword_info
-        - sentiword_live_score
+        - sentiword_info : 한국어 감정 사전
+        - sentiword_live_score : 라이브 방송 감정분석 점수
+        - sentiword_goods_score : 상품평 감정분석 점수
         - god : 상품
         - god_god_evl : 상품평
         - god_god_evl_atch_file : 상품평 첨부파일
         - god_god_evl_size : 상품평 사이즈 정보
-        - god_god_evl_wear_info : 상품평 사이즈 정보
+        - god_god_evl_wear_info : 실제 고객 상품평 사이즈 정보
 
 6. Django Rest APi
     - pip install djangorestframework
@@ -72,8 +73,11 @@ Han Nune Live Chat Analytics Platform
     - npm install axios
     - npm install --save d3 d3-cloud
     - npm install vue-chartjs chart.js
-    - npm install chart.js
+    - npm install chart.js@2
     - npm install --save moment
+    - npm install chartjs-adapter-luxon
+    - npm install --save luxon
+    - npm install --save vue-chartjs chart.js
 
 8. Django CORS 처리
     - pip install django-cors-headers
@@ -85,7 +89,7 @@ Han Nune Live Chat Analytics Platform
 - npm ERR! code ENOENT 에러
     - npm 실행은 package.json이 있는 곳에서 하자 :)
 
-
+## PyKomoran
 - DEFAULT_MODEL 은 기본적으로 PyKomoran에 포함된 모델로,
 - KOMORAN의 DEFAULT_MODEL 에 대응합니다.
 - 즉, PyKOMORAN의 "EXP" 과 "STABLE" 은 각각
