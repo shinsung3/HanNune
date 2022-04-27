@@ -38,9 +38,7 @@ urlpatterns = [
     path('sentiword/<str:searchWord>/', sentiword_views.getSentiword, name="getSentiword"), #live_id로 호출
 
     #keyword
-    path('keyword/', keyword_views.keywordController, name="keyword"), #chat전체 호출
-    path('keyword/<int:live_id>/', keyword_views.keywordPKController, name="keyword_pk"), #live_id로 호출
-    path('keyword/live/<int:live_id>/', keyword_views.insertLiveChatKeywordController, name="keywordSearch"), #live_id로 호출
+    path('keyword/<str:key>/rank/<str:id>', keyword_views.getOrPostKeywordRank, name="getOrPostKeywordRank"), #live_id로 호출
 
     #goods
     path('goods/', goods_views.goodsContoller, name="goods"), #goods 전체 호출

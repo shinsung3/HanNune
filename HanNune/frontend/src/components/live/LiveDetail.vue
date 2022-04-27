@@ -131,7 +131,7 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
       id:String,
     },
     mounted() {
-        axios.get('http://127.0.0.1:8000/keyword/live/'+this.id)
+        axios.get('http://127.0.0.1:8000/live/'+this.id)
             .then( (result)  => {
                 var raw = result.data;
                 this.words = this.makeKeywordArray(raw);
@@ -287,7 +287,7 @@ var color = d3.scaleOrdinal(d3.schemeSet3);
         makeGraphData(){
             var timestamp = []
 
-            axios.get('http://127.0.0.1:8000/keyword/'+this.id)
+            axios.get('http://127.0.0.1:8000/live/'+this.id)
             .then( result  => {
                 var raw = result.data
                 timestamp = this.makeArray(raw)
