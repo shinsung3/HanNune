@@ -23,14 +23,16 @@ urlpatterns = [
     # path('', views.index_home, name='index'),
 
     #live
-    path('live/', live_views.getLiveIdInfo, name="getLiveIdInfo"), #live 정보 전체 호출
-    path('live/<int:live_id>', live_views.getLiveInfo, name="getLiveInfo"), #live_id 정보 호출
+    path('live/', live_views.getLiveInfo, name="getLiveInfo"), #live 정보 전체 호출
+    path('live/<int:live_id>', live_views.getLiveIdInfo, name="getLiveIdInfo"), #live_id 정보 호출
     path('live/chat', live_views.getLiveChat, name="getLiveChat"), #live chat전체 호출
     path('live/chat/<int:live_id>/', live_views.getLiveIdChat, name="getLiveIdChat"), #live chat live_id 기준으로 호출
 
     #emotion
     path('emotion/<str:key>/score/', emotion_views.getSentiwordScore, name="getSentiwordScore"), #live_id로 호출
     path('emotion/<str:key>/score/<str:id>/', emotion_views.getOrPostSentiwordScore, name="getOrPostSentiwordScore"), #live_id로 호출
+    path('emotion/<str:key>/total/score/', emotion_views.getGoodsEvl, name="getGoodsEvl"), #god_no로 모든 리뷰 정보 호출
+    path('emotion/<str:key>/total/score/<str:id>', emotion_views.getGoodsIdEvl, name="getGoodsIdEvl"), #god_no로 모든 리뷰 정보 호출
 
     #sentiword
     path('sentiword/<str:searchWord>/', sentiword_views.getSentiword, name="getSentiword"), #live_id로 호출
