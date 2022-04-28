@@ -155,6 +155,7 @@ class goods_emotion(models.Model):
     best_evl2_cnt = models.IntegerField()
     best_evl1_cnt = models.IntegerField()
     god_nm = models.CharField(max_length=500)
+    god_img = models.CharField(max_length=45)
 
 class keyword_goods_rank(models.Model):
     goods_keyword_sn = models.AutoField(primary_key=True)
@@ -183,7 +184,7 @@ class god_img(models.Model):
     reg_dt = models.DateTimeField(null=True)
     udter_id = models.CharField(max_length=45)
     udt_dt = models.DateTimeField(null=True)
-    god_img_sn = models.CharField(primary_key=True)
+    god_img_sn = models.CharField(primary_key=True, max_length=200)
 
     class Meta:
         managed = False
