@@ -124,7 +124,6 @@
           this.wordScoreSelect()
           // console.log(this.wordScore)
           this.hotKeywordSelect()
-          console.log(this.hotKeyword)
         })
       },
       wordScoreSelect(){
