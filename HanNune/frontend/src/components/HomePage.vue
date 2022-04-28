@@ -2,7 +2,7 @@
     <v-app>
         <Header/>
         <MainPage/>
-        <GoodsEmotion/>
+        <GoodsEmotionCorner/>
         <HfmHotKeyword/>
         <Footer/>
     </v-app>
@@ -10,7 +10,7 @@
 
 <script>
 import MainPage from './MainPage';
-import GoodsEmotion from './GoodsEmotion.vue';
+import GoodsEmotionCorner from './GoodsEmotionCorner.vue';
 import HfmHotKeyword from './HfmHotKeyword.vue';
 import Header from './HeaderPage.vue';
 import Footer from './FooterPage.vue';
@@ -21,7 +21,7 @@ export default {
   components: {
     Header,
     MainPage,
-    GoodsEmotion,
+    GoodsEmotionCorner,
     HfmHotKeyword,
     Footer,
   },
