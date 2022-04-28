@@ -133,6 +133,23 @@
                                                 </v-chip>
                                             </v-card-actions>
                                         <!-- </router-link> -->
+                                        <!-- <v-card-actions> -->
+                                        <v-divider class="mx-2"></v-divider>
+                                        <v-card-title class="v-keyword">HOT KEYWORD</v-card-title>
+                                        <v-card-text>
+                                            <v-chip-group
+                                            v-model="selection"
+                                            active-class="deep-purple accent-4 white--text"
+                                            column
+                                            >
+                                            <v-chip>{{hotKeyword[i][0].first}}</v-chip>
+                                            <v-chip>{{hotKeyword[i][0].second}}</v-chip>
+                                            <v-chip>{{hotKeyword[i][0].third}}</v-chip>
+                                            <v-chip>{{hotKeyword[i][0].fourth}}</v-chip>
+                                            <v-chip>{{hotKeyword[i][0].fifth}}</v-chip>
+                                            <v-chip>{{hotKeyword[i][0].sixth}}</v-chip>
+                                            </v-chip-group>
+                                        </v-card-text>
                                     </v-col>
                                 </div>
                             </v-card>
@@ -195,7 +212,10 @@ export default {
         reviewTotCnt:[],
         review:[],
         dialog: false,
-        showDialog : false
+        showDialog : false,
+        hotKeyword:[],
+        keywordCount:0,
+        rtcarousel:""
     }),
     created(){
         this.selectGod()
@@ -251,7 +271,7 @@ export default {
                         god_img_url : "https://cdn.hfashionmall.com"+result.data[i].god_img+"RGINL.jpg?RS=960x960&AR=0&CS=640x960"
                     })
                 }
-                // console.log(this.items)
+                this.hotKeywordSelect()
             })
         },
         moveDetailPage(idx){
@@ -263,6 +283,32 @@ export default {
                     item : this.items[idx]
                 }
             })
+        },
+        hotKeywordSelect(){
+            for(var i = 0; i<this.items.length; i++){
+                axios.get("http://127.0.0.1:8000/keyword/goods/rank/"+this.items[i].godNo)
+                .then((result)=>{
+                    var temp = result.data
+                    this.hotKeyword.push(this.makeHotKeywordArray(temp))
+                })
+            }
+        },
+        makeHotKeywordArray(arr){
+            var tempArray = []
+
+            tempArray.push({
+                god_no: arr[0].god_no,
+                first: arr[0].keyword,
+                second: arr[1].keyword,
+                third: arr[2].keyword,
+                fourth: arr[3].keyword,
+                fifth: arr[4].keyword,
+                sixth: arr[5].keyword,
+                seventh:arr[6].keyword,
+                eighth: arr[7].keyword
+            })
+
+            return tempArray
         }
     }
 }
@@ -270,5 +316,8 @@ export default {
 <style>
 .v-title {
     font-family: 'Do Hyeon', sans-serif;
+}
+.v-keyword{
+  font-family: 'Black Han Sans', sans-serif;
 }
 </style>
