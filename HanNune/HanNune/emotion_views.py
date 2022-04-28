@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 
 from .serializers import SentiWordLiveScoreSerializer, SentiWordGoodsScoreSerializer, GoodsEmotionSerializer
-from .models import live_chat, sentiword_info, sentiword_live_score, sentiword_goods_score, god_god_evl, god
+from .models import live_chat, sentiword_info, sentiword_live_score, sentiword_goods_score, god_god_evl, god, god_img
 from django.db import connection, connections
 import requests
 import json
@@ -136,6 +136,9 @@ def getGoodsIdEvl(request, id, key):
         bestReview = {"5":0, "4":0, "3":0, "2":0, "1":0}
         goodsBestReview = god_god_evl.objects.filter(god_no=id)
         goodsReview = sentiword_goods_score.objects.filter(god_no=id)
+        goodsImg = god_img.objects.filter(god_no=id).filter(img_turn=0)
+        if len(goodsImg) == 0:
+            goodsImg = god_img.objects.filter(god_no=id).filter(img_turn=1)
         # goods = god.objects.filter(god_no=id)
         # print(goods.god_nm)
         # print(goods[0].god_nm)
@@ -162,7 +165,9 @@ def getGoodsIdEvl(request, id, key):
                  'best_evl3_cnt': bestReview['3'],
                  'best_evl2_cnt': bestReview['2'],
                  'best_evl1_cnt': bestReview['1'],
-                 'god_nm' : goodsReview[0].god_nm}]
+                 'god_nm' : goodsReview[0].god_nm,
+                 'god_img' : goodsImg[0].img_url
+                }]
         serializer = GoodsEmotionSerializer(item, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -183,10 +188,13 @@ def getGoodsEvl(request, key):
             goodsId = review['god_no']
             goodsIdReview = god_god_evl.objects.filter(god_no=goodsId)
             goodsReview = sentiword_goods_score.objects.filter(god_no=goodsId)
+            goodsImg = god_img.objects.filter(god_no=goodsId).filter(img_turn=0)
+            if len(goodsImg) == 0:
+                goodsImg = god_img.objects.filter(god_no=goodsId).filter(img_turn=1)
             for r in goodsIdReview:
                 if r.BST_GOD_EVL_YN == "Y":
                     bestReview[r.tot_evl_score]+=1
-            item = {'id': goodsId,
+            item = {'id': goodsId, 
                     'power_negative':goodsReview[0].power_negative,
                     'negative' : goodsReview[0].negative,
                     'neutrality' : goodsReview[0].neutrality,
@@ -204,7 +212,8 @@ def getGoodsEvl(request, key):
                     'best_evl3_cnt': bestReview['3'],
                     'best_evl2_cnt': bestReview['2'],
                     'best_evl1_cnt': bestReview['1'],
-                    'god_nm' : goodsReview[0].god_nm}
+                    'god_nm' : goodsReview[0].god_nm,
+                    'god_img' : goodsImg[0].img_url}
             items.append(item)
         # print(items)
         serializer = GoodsEmotionSerializer(items, many=True)

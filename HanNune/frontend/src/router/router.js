@@ -5,6 +5,7 @@ import HomePage from '@/components/HomePage';
 import LivePage from '@/components/live/LiveMainPage';
 import LiveDetailPage from '@/components/live/LiveDetail';
 import GoodsPage from '@/components/goods/GoodsMainPage';
+import GoodsDetailPage from '@/components/goods/GoodsDetail';
 
 
 Vue.use(VueRouter); // router 기능 확장 선언
@@ -40,9 +41,23 @@ const router = new VueRouter({
       ]
     },
     {
-      path: "/goods",
-      name: "goods-list",
-      component:GoodsPage
+      path:'/goods',
+      name: 'goods-list',
+      component: GoodsPage
+    },
+    {
+      path: "/goods/detail",
+      name: "goods-detail",
+      component: GoodsDetailPage,
+      props: true,
+      children :[
+        {
+          path:':id',
+          name:'goods-detail',
+          component: GoodsDetailPage,
+          props: true
+        }
+      ]
     }
   ]
 });

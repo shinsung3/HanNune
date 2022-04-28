@@ -22,8 +22,9 @@
                                             height="400"
                                             tile
                                             >
+
                                             <!-- <v-img :src="item.src"></v-img> -->
-                                            <v-img src="https://cdn.hfashionmall.com/goods/THBR/21/11/12/GM0121111299837_2_ORGINL.jpg?RS=960x960&AR=0&CS=640x960"></v-img>
+                                            <v-img :src="item.god_img_url"></v-img>
                                         </v-avatar>
                                     </v-col>
                                     <v-col cols="7">
@@ -128,7 +129,7 @@
                                                     <v-icon left>
                                                         mdi-label
                                                     </v-icon>
-                                                    상품 분석 디테일 >
+                                                    상품 분석 디테일 🔜
                                                 </v-chip>
                                             </v-card-actions>
                                         <!-- </router-link> -->
@@ -247,102 +248,11 @@ export default {
                         totCnt: result.data[i].evl1_cnt+result.data[i].evl2_cnt+result.data[i].evl3_cnt+result.data[i].evl4_cnt+result.data[i].evl5_cnt,
                         customerCnt: parseInt(((result.data[i].evl1_cnt*1+result.data[i].evl2_cnt*2+result.data[i].evl3_cnt*3+result.data[i].evl4_cnt*4+result.data[i].evl5_cnt*5)/
                                         (result.data[i].evl1_cnt+result.data[i].evl2_cnt+result.data[i].evl3_cnt+result.data[i].evl4_cnt+result.data[i].evl5_cnt))*100)/100,
+                        god_img_url : "https://cdn.hfashionmall.com"+result.data[i].god_img+"RGINL.jpg?RS=960x960&AR=0&CS=640x960"
                     })
-                    const config =  {
-                        type: "pie",
-                        data: {
-                        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                        datasets: [
-                            {
-                            label: "# of Votes",
-                            data: [this.items[0].evl1_cnt,this.items[0].evl2_cnt,this.items[0].evl3_cnt,this.items[0].evl4_cnt,this.items[0].evl5_cnt],
-                            backgroundColor: [
-                                "rgba(255, 99, 132, 0.2)",
-                                "rgba(54, 162, 235, 0.2)",
-                                "rgba(255, 206, 86, 0.2)",
-                                "rgba(75, 192, 192, 0.2)",
-                                "rgba(153, 102, 255, 0.2)",
-                                "rgba(255, 159, 64, 0.2)",
-                            ],
-                            borderColor: [
-                                "rgba(255,99,132,1)",
-                                "rgba(54, 162, 235, 1)",
-                                "rgba(255, 206, 86, 1)",
-                                "rgba(75, 192, 192, 1)",
-                                "rgba(153, 102, 255, 1)",
-                                "rgba(255, 159, 64, 1)",
-                            ],
-                            borderWidth: 1,
-                            },
-                        ],
-                        },
-                        options: {
-                        maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-                        scales: {
-                            yAxes: [
-                            {
-                                ticks: {
-                                beginAtZero: true,
-                                },
-                            },
-                            ],
-                        },
-                        },
-                    };
-                    var ctx = document.getElementById("myChart")
-                    var myChart = new Chart(ctx,config);
                 }
-                console.log(this.items)
-                this.chartMethod()
+                // console.log(this.items)
             })
-        },
-        chartMethod(){
-            // <block:actions:2>
-            var ctx = document.getElementById("myChart")
-            // .getContext("2d");
-            console.log(ctx)
-            const config =  {
-                type: "pie",
-                data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [
-                    {
-                    label: "# of Votes",
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        "rgba(255, 99, 132, 0.2)",
-                        "rgba(54, 162, 235, 0.2)",
-                        "rgba(255, 206, 86, 0.2)",
-                        "rgba(75, 192, 192, 0.2)",
-                        "rgba(153, 102, 255, 0.2)",
-                        "rgba(255, 159, 64, 0.2)",
-                    ],
-                    borderColor: [
-                        "rgba(255,99,132,1)",
-                        "rgba(54, 162, 235, 1)",
-                        "rgba(255, 206, 86, 1)",
-                        "rgba(75, 192, 192, 1)",
-                        "rgba(153, 102, 255, 1)",
-                        "rgba(255, 159, 64, 1)",
-                    ],
-                    borderWidth: 1,
-                    },
-                ],
-                },
-                options: {
-                maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-                scales: {
-                    yAxes: [
-                    {
-                        ticks: {
-                        beginAtZero: true,
-                        },
-                    },
-                    ],
-                },
-                },
-            };
-            var myChart = new Chart(ctx,config);
         },
         moveDetailPage(idx){
             console.log(this.items[idx].godNo)

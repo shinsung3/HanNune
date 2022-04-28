@@ -42,6 +42,9 @@ urlpatterns = [
 
     #goods
     path('goods/', goods_views.goodsContoller, name="goods"), #goods 전체 호출
+    path('goods/img', goods_views.getGoodsImg, name="getGoodsImg"), #goods img 전체 호출
+    path('goods/img/<str:god_no>', goods_views.getGoodsIdImg, name="getGoodsIdImg"), #goods img 전체 호출
+
 
     #review
     path('review/<str:god_no>/', goods_review_views.getGoodsReview, name="getGoodsReview"), #god_no으로 리뷰 호출

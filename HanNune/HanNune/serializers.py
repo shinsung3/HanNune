@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import god_god_evl, goods_emotion, live_chat,sentiword_info, sentiword_live_score, keyword_live_rank, live, god, sentiword_goods_score, keyword_goods_rank
+from .models import god_god_evl, god_img, goods_emotion, live_chat,sentiword_info, sentiword_live_score, keyword_live_rank, live, god, sentiword_goods_score, keyword_goods_rank
 class LiveChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = live_chat
@@ -40,10 +40,11 @@ class GoodsReviewSerializer(serializers.ModelSerializer):
         model = god_god_evl
         fields = '__all__'
 
-# class GoodsBestReviewSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = sentiword_goods_score
-#         fields = ('god_no','god_nm', 'evl5_cnt', 'evl4_cnt','evl3_cnt', 'evl2_cnt', 'evl1_cnt')
+
+class GoodsImgSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = god_img
+        fields = '__all__'
 
 class GoodsEmotionSerializer(serializers.ModelSerializer):
     class Meta:
